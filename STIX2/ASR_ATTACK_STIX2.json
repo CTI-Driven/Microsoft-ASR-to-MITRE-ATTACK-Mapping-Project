@@ -1,0 +1,2336 @@
+{
+  "spec_version": "2.1",
+  "id": "bundle--7b90ee99-bd47-4d52-9569-633b750ea311",
+  "type": "bundle",
+  "objects": [
+    {
+      "id": "attack-pattern--0d91b3c0-5e50-47c3-949a-2a796f04d144",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2024-03-29T12:38:17.135Z",
+      "modified": "2024-04-19T04:03:07.164Z",
+      "revoked": false,
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "url": "https://attack.mitre.org/techniques/T1027/013",
+          "external_id": "T1027.013"
+        },
+        {
+          "source_name": "File obfuscation",
+          "description": "Aspen Lindblom, Joseph Goodwin, and Chris Sheldon. (2021, July 19). Shlayer Malvertising Campaigns Still Using Flash Update Disguise. Retrieved March 29, 2024.",
+          "url": "https://www.crowdstrike.com/blog/shlayer-malvertising-campaigns-still-using-flash-update-disguise/"
+        },
+        {
+          "source_name": "SFX - Encrypted/Encoded File",
+          "description": "Jai Minton. (2023, March 31). How Falcon OverWatch Investigates Malicious Self-Extracting Archives, Decoy Files and Their Hidden Payloads. Retrieved March 29, 2024.",
+          "url": "https://www.crowdstrike.com/blog/self-extracting-archives-decoy-files-and-their-hidden-payloads/"
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "Encrypted/Encoded File",
+      "description": "Adversaries may encrypt or encode files to obfuscate strings, bytes, and other specific patterns to impede detection. Encrypting and/or encoding file content aims to conceal malicious artifacts within a file used in an intrusion. Many other techniques, such as [Software Packing](https://attack.mitre.org/techniques/T1027/002), [Steganography](https://attack.mitre.org/techniques/T1027/003), and [Embedded Payloads](https://attack.mitre.org/techniques/T1027/009), share this same broad objective. Encrypting and/or encoding files could lead to a lapse in detection of static signatures, only for this malicious content to be revealed (i.e., [Deobfuscate/Decode Files or Information](https://attack.mitre.org/techniques/T1140)) at the time of execution/use.\n\nThis type of file obfuscation can be applied to many file artifacts present on victim hosts, such as malware log/configuration and payload files.(Citation: File obfuscation) Files can be encrypted with a hardcoded or user-supplied key, as well as otherwise obfuscated using standard encoding/compression schemes such as Base64.\n\nThe entire content of a file may be obfuscated, or just specific functions or values (such as C2 addresses). Encryption and encoding may also be applied in redundant layers for additional protection.\n\nFor example, adversaries may abuse password-protected Word documents or self-extracting (SFX) archives as a method of encrypting/encoding a file such as a [Phishing](https://attack.mitre.org/techniques/T1566) payload. These files typically function by attaching the intended archived content to a decompressor stub that is executed when the file is invoked (e.g., [User Execution](https://attack.mitre.org/techniques/T1204)).(Citation: SFX - Encrypted/Encoded File) \n\nAdversaries may also abuse file-specific as well as custom encoding schemes. For example, Byte Order Mark (BOM) headers in text files may be abused to manipulate and obfuscate file content until [Command and Scripting Interpreter](https://attack.mitre.org/techniques/T1059) execution.",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "defense-evasion"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--0f4a0c76-ab2d-4cb0-85d3-3f0efb8cba0d",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2020-06-23T19:12:24.924Z",
+      "modified": "2021-08-16T21:02:05.142Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1059.007",
+          "url": "https://attack.mitre.org/techniques/T1059/007"
+        },
+        {
+          "source_name": "NodeJS",
+          "url": "https://nodejs.org/",
+          "description": "OpenJS Foundation. (n.d.). Node.js. Retrieved June 23, 2020."
+        },
+        {
+          "source_name": "JScrip May 2018",
+          "url": "https://docs.microsoft.com/windows/win32/com/translating-to-jscript",
+          "description": "Microsoft. (2018, May 31). Translating to JScript. Retrieved June 23, 2020."
+        },
+        {
+          "source_name": "Microsoft JScript 2007",
+          "url": "https://docs.microsoft.com/archive/blogs/gauravseth/the-world-of-jscript-javascript-ecmascript",
+          "description": "Microsoft. (2007, August 15). The World of JScript, JavaScript, ECMAScript …. Retrieved June 23, 2020."
+        },
+        {
+          "source_name": "Microsoft Windows Scripts",
+          "url": "https://docs.microsoft.com/scripting/winscript/windows-script-interfaces",
+          "description": "Microsoft. (2017, January 18). Windows Script Interfaces. Retrieved June 23, 2020."
+        },
+        {
+          "source_name": "Apple About Mac Scripting 2016",
+          "url": "https://developer.apple.com/library/archive/documentation/LanguagesUtilities/Conceptual/MacAutomationScriptingGuide/index.html",
+          "description": "Apple. (2016, June 13). About Mac Scripting. Retrieved April 14, 2021."
+        },
+        {
+          "source_name": "SpecterOps JXA 2020",
+          "url": "https://posts.specterops.io/persistent-jxa-66e1c3cd1cf5",
+          "description": "Pitt, L. (2020, August 6). Persistent JXA. Retrieved April 14, 2021."
+        },
+        {
+          "source_name": "SentinelOne macOS Red Team",
+          "url": "https://www.sentinelone.com/blog/macos-red-team-calling-apple-apis-without-building-binaries/",
+          "description": "Phil Stokes. (2019, December 5). macOS Red Team: Calling Apple APIs Without Building Binaries. Retrieved July 17, 2020."
+        },
+        {
+          "source_name": "Red Canary Silver Sparrow Feb2021",
+          "url": "https://redcanary.com/blog/clipping-silver-sparrows-wings/",
+          "description": "Tony Lambert. (2021, February 18). Clipping Silver Sparrow’s wings: Outing macOS malware before it takes flight. Retrieved April 20, 2021."
+        },
+        {
+          "source_name": "MDSec macOS JXA and VSCode",
+          "url": "https://www.mdsec.co.uk/2021/01/macos-post-exploitation-shenanigans-with-vscode-extensions/",
+          "description": "Dominic Chell. (2021, January 1). macOS Post-Exploitation Shenanigans with VSCode Extensions. Retrieved April 20, 2021."
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "JavaScript",
+      "description": "Adversaries may abuse various implementations of JavaScript for execution. JavaScript (JS) is a platform-independent scripting language (compiled just-in-time at runtime) commonly associated with scripts in webpages, though JS can be executed in runtime environments outside the browser.(Citation: NodeJS)\n\nJScript is the Microsoft implementation of the same scripting standard. JScript is interpreted via the Windows Script engine and thus integrated with many components of Windows such as the [Component Object Model](https://attack.mitre.org/techniques/T1559/001) and Internet Explorer HTML Application (HTA) pages.(Citation: JScrip May 2018)(Citation: Microsoft JScript 2007)(Citation: Microsoft Windows Scripts)\n\nJavaScript for Automation (JXA) is a macOS scripting language based on JavaScript, included as part of Apple’s Open Scripting Architecture (OSA), that was introduced in OSX 10.10. Apple’s OSA provides scripting capabilities to control applications, interface with the operating system, and bridge access into the rest of Apple’s internal APIs. As of OSX 10.10, OSA only supports two languages, JXA and [AppleScript](https://attack.mitre.org/techniques/T1059/002). Scripts can be executed via the command line utility <code>osascript</code>, they can be compiled into applications or script files via <code>osacompile</code>, and they can be compiled and executed in memory of other programs by leveraging the OSAKit Framework.(Citation: Apple About Mac Scripting 2016)(Citation: SpecterOps JXA 2020)(Citation: SentinelOne macOS Red Team)(Citation: Red Canary Silver Sparrow Feb2021)(Citation: MDSec macOS JXA and VSCode)\n\nAdversaries may abuse various implementations of JavaScript to execute various behaviors. Common uses include hosting malicious scripts on websites as part of a [Drive-by Compromise](https://attack.mitre.org/techniques/T1189) or downloading and executing these script files as secondary payloads. Since these payloads are text-based, it is also very common for adversaries to obfuscate their content as part of [Obfuscated Files or Information](https://attack.mitre.org/techniques/T1027).",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "execution"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--01a5a209-b94c-450b-b7f9-946497d91055",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2017-05-31T21:30:44.329Z",
+      "modified": "2024-04-11T18:13:25.130Z",
+      "revoked": false,
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "url": "https://attack.mitre.org/techniques/T1047",
+          "external_id": "T1047"
+        },
+        {
+          "source_name": "FireEye WMI 2015",
+          "description": "Ballenthin, W., et al. (2015). Windows Management Instrumentation (WMI) Offense, Defense, and Forensics. Retrieved March 30, 2016.",
+          "url": "https://www.fireeye.com/content/dam/fireeye-www/global/en/current-threats/pdfs/wp-windows-management-instrumentation.pdf"
+        },
+        {
+          "source_name": "Mandiant WMI",
+          "description": "Mandiant. (n.d.). Retrieved February 13, 2024.",
+          "url": "https://www.mandiant.com/resources/reports"
+        },
+        {
+          "source_name": "WMI 6",
+          "description": "Microsoft. (2022, June 13). BlackCat. Retrieved February 13, 2024.",
+          "url": "https://www.microsoft.com/en-us/security/blog/2022/06/13/the-many-lives-of-blackcat-ransomware/"
+        },
+        {
+          "source_name": "WMI 1-3",
+          "description": "Microsoft. (2023, March 7). Retrieved February 13, 2024.",
+          "url": "https://learn.microsoft.com/en-us/windows/win32/wmisdk/wmi-start-page?redirectedfrom=MSDN"
+        },
+        {
+          "source_name": "WMI 7,8",
+          "description": "Microsoft. (2024, January 26). WMIC Deprecation. Retrieved February 13, 2024.",
+          "url": "https://techcommunity.microsoft.com/t5/windows-it-pro-blog/wmi-command-line-wmic-utility-deprecation-next-steps/ba-p/4039242"
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "Windows Management Instrumentation",
+      "description": "Adversaries may abuse Windows Management Instrumentation (WMI) to execute malicious commands and payloads. WMI is designed for programmers and is the infrastructure for management data and operations on Windows systems.(Citation: WMI 1-3) WMI is an administration feature that provides a uniform environment to access Windows system components.\n\nThe WMI service enables both local and remote access, though the latter is facilitated by [Remote Services](https://attack.mitre.org/techniques/T1021) such as [Distributed Component Object Model](https://attack.mitre.org/techniques/T1021/003) and [Windows Remote Management](https://attack.mitre.org/techniques/T1021/006).(Citation: WMI 1-3) Remote WMI over DCOM operates using port 135, whereas WMI over WinRM operates over port 5985 when using HTTP and 5986 for HTTPS.(Citation: WMI 1-3) (Citation: Mandiant WMI)\n\nAn adversary can use WMI to interact with local and remote systems and use it as a means to execute various behaviors, such as gathering information for [Discovery](https://attack.mitre.org/tactics/TA0007) as well as [Execution](https://attack.mitre.org/tactics/TA0002) of commands and payloads.(Citation: Mandiant WMI) For example, `wmic.exe` can be abused by an adversary to delete shadow copies with the command `wmic.exe Shadowcopy Delete` (i.e., [Inhibit System Recovery](https://attack.mitre.org/techniques/T1490)).(Citation: WMI 6)\n\n**Note:** `wmic.exe` is deprecated as of January of 2024, with the WMIC feature being “disabled by default” on Windows 11+. WMIC will be removed from subsequent Windows releases and replaced by [PowerShell](https://attack.mitre.org/techniques/T1059/001) as the primary WMI interface.(Citation: WMI 7,8) In addition to PowerShell and tools like `wbemtool.exe`, COM APIs can also be used to programmatically interact with WMI via C++, .NET, VBScript, etc.(Citation: WMI 7,8)",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "execution"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--1c4e5d32-1fe9-4116-9d9d-59e3925bd6a2",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2020-02-10T20:43:10.239Z",
+      "modified": "2023-09-14T21:12:48.409Z",
+      "revoked": false,
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "url": "https://attack.mitre.org/techniques/T1036/005",
+          "external_id": "T1036.005"
+        },
+        {
+          "source_name": "Twitter ItsReallyNick Masquerading Update",
+          "description": "Carr, N.. (2018, October 25). Nick Carr Status Update Masquerading. Retrieved April 22, 2019.",
+          "url": "https://twitter.com/ItsReallyNick/status/1055321652777619457"
+        },
+        {
+          "source_name": "Docker Images",
+          "description": "Docker. (n.d.). Docker Images. Retrieved April 6, 2021.",
+          "url": "https://docs.docker.com/engine/reference/commandline/images/"
+        },
+        {
+          "source_name": "Elastic Masquerade Ball",
+          "description": "Ewing, P. (2016, October 31). How to Hunt: The Masquerade Ball. Retrieved October 31, 2016.",
+          "url": "https://www.elastic.co/blog/how-hunt-masquerade-ball"
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "Match Legitimate Name or Location",
+      "description": "Adversaries may match or approximate the name or location of legitimate files or resources when naming/placing them. This is done for the sake of evading defenses and observation. This may be done by placing an executable in a commonly trusted directory (ex: under System32) or giving it the name of a legitimate, trusted program (ex: svchost.exe). In containerized environments, this may also be done by creating a resource in a namespace that matches the naming convention of a container pod or cluster. Alternatively, a file or container image name given may be a close approximation to legitimate programs/images or something innocuous.\n\nAdversaries may also use the same icon of the file they are trying to mimic.",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "defense-evasion"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--2c4d4e92-0ccf-4a97-b54c-86d662988a53",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2017-12-14T16:46:06.044Z",
+      "modified": "2021-10-15T20:18:31.112Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1137",
+          "url": "https://attack.mitre.org/techniques/T1137"
+        },
+        {
+          "source_name": "SensePost Ruler GitHub",
+          "url": "https://github.com/sensepost/ruler",
+          "description": "SensePost. (2016, August 18). Ruler: A tool to abuse Exchange services. Retrieved February 4, 2019."
+        },
+        {
+          "source_name": "TechNet O365 Outlook Rules",
+          "url": "https://blogs.technet.microsoft.com/office365security/defending-against-rules-and-forms-injection/",
+          "description": "Koeller, B.. (2018, February 21). Defending Against Rules and Forms Injection. Retrieved November 5, 2019."
+        },
+        {
+          "source_name": "CrowdStrike Outlook Forms",
+          "url": "https://malware.news/t/using-outlook-forms-for-lateral-movement-and-persistence/13746",
+          "description": "Parisi, T., et al. (2017, July). Using Outlook Forms for Lateral Movement and Persistence. Retrieved February 5, 2019."
+        },
+        {
+          "source_name": "Outlook Today Home Page",
+          "url": "https://medium.com/@bwtech789/outlook-today-homepage-persistence-33ea9b505943",
+          "description": "Soutcast. (2018, September 14). Outlook Today Homepage Persistence. Retrieved February 5, 2019."
+        },
+        {
+          "source_name": "Microsoft Detect Outlook Forms",
+          "url": "https://docs.microsoft.com/en-us/office365/securitycompliance/detect-and-remediate-outlook-rules-forms-attack",
+          "description": "Fox, C., Vangel, D. (2018, April 22). Detect and Remediate Outlook Rules and Custom Forms Injections Attacks in Office 365. Retrieved February 4, 2019."
+        },
+        {
+          "source_name": "SensePost NotRuler",
+          "url": "https://github.com/sensepost/notruler",
+          "description": "SensePost. (2017, September 21). NotRuler - The opposite of Ruler, provides blue teams with the ability to detect Ruler usage against Exchange. Retrieved February 4, 2019."
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "Office Application Startup",
+      "description": "Adversaries may leverage Microsoft Office-based applications for persistence between startups. Microsoft Office is a fairly common application suite on Windows-based operating systems within an enterprise network. There are multiple mechanisms that can be used with Office for persistence when an Office-based application is started; this can include the use of Office Template Macros and add-ins.\n\nA variety of features have been discovered in Outlook that can be abused to obtain persistence, such as Outlook rules, forms, and Home Page.(Citation: SensePost Ruler GitHub) These persistence mechanisms can work within Outlook or be used through Office 365.(Citation: TechNet O365 Outlook Rules)",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "persistence"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--3b744087-9945-4a6f-91e8-9dbceda417a4",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2017-05-31T21:31:08.977Z",
+      "modified": "2023-10-17T20:42:21.453Z",
+      "revoked": false,
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "url": "https://attack.mitre.org/techniques/T1091",
+          "external_id": "T1091"
+        },
+        {
+          "source_name": "Windows Malware Infecting Android",
+          "description": "Lucian Constantin. (2014, January 23). Windows malware tries to infect Android devices connected to PCs. Retrieved May 25, 2022.",
+          "url": "https://www.computerworld.com/article/2486903/windows-malware-tries-to-infect-android-devices-connected-to-pcs.html"
+        },
+        {
+          "source_name": "iPhone Charging Cable Hack",
+          "description": "Zack Whittaker. (2019, August 12). This hacker’s iPhone charging cable can hijack your computer. Retrieved May 25, 2022.",
+          "url": "https://techcrunch.com/2019/08/12/iphone-charging-cable-hack-computer-def-con/"
+        },
+        {
+          "source_name": "Exploiting Smartphone USB ",
+          "description": "Zhaohui Wang & Angelos Stavrou. (n.d.). Exploiting Smart-Phone USB Connectivity For Fun And Profit. Retrieved May 25, 2022.",
+          "url": "https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.226.3427&rep=rep1&type=pdf"
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "Replication Through Removable Media",
+      "description": "Adversaries may move onto systems, possibly those on disconnected or air-gapped networks, by copying malware to removable media and taking advantage of Autorun features when the media is inserted into a system and executes. In the case of Lateral Movement, this may occur through modification of executable files stored on removable media or by copying malware and renaming it to look like a legitimate file to trick users into executing it on a separate system. In the case of Initial Access, this may occur through manual manipulation of the media, modification of systems used to initially format the media, or modification to the media's firmware itself.\n\nMobile devices may also be used to infect PCs with malware if connected via USB.(Citation: Exploiting Smartphone USB ) This infection may be achieved using devices (Android, iOS, etc.) and, in some instances, USB charging cables.(Citation: Windows Malware Infecting Android)(Citation: iPhone Charging Cable Hack) For example, when a smartphone is connected to a system, it may appear to be mounted similar to a USB-connected disk drive. If malware that is compatible with the connected system is on the mobile device, the malware could infect the machine (especially if Autorun features are enabled).",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "lateral-movement"
+        },
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "initial-access"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--3d1b9d7e-3921-4d25-845a-7d9f15c0da44",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2019-11-07T20:00:25.560Z",
+      "modified": "2021-10-15T20:18:30.700Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1137.005",
+          "url": "https://attack.mitre.org/techniques/T1137/005"
+        },
+        {
+          "source_name": "SilentBreak Outlook Rules",
+          "url": "https://silentbreaksecurity.com/malicious-outlook-rules/",
+          "description": "Landers, N. (2015, December 4). Malicious Outlook Rules. Retrieved February 4, 2019."
+        },
+        {
+          "source_name": "Microsoft Detect Outlook Forms",
+          "url": "https://docs.microsoft.com/en-us/office365/securitycompliance/detect-and-remediate-outlook-rules-forms-attack",
+          "description": "Fox, C., Vangel, D. (2018, April 22). Detect and Remediate Outlook Rules and Custom Forms Injections Attacks in Office 365. Retrieved February 4, 2019."
+        },
+        {
+          "source_name": "Pfammatter - Hidden Inbox Rules",
+          "url": "https://blog.compass-security.com/2018/09/hidden-inbox-rules-in-microsoft-exchange/",
+          "description": "Damian Pfammatter. (2018, September 17). Hidden Inbox Rules in Microsoft Exchange. Retrieved October 12, 2021."
+        },
+        {
+          "source_name": "SensePost NotRuler",
+          "url": "https://github.com/sensepost/notruler",
+          "description": "SensePost. (2017, September 21). NotRuler - The opposite of Ruler, provides blue teams with the ability to detect Ruler usage against Exchange. Retrieved February 4, 2019."
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "Outlook Rules",
+      "description": "Adversaries may abuse Microsoft Outlook rules to obtain persistence on a compromised system. Outlook rules allow a user to define automated behavior to manage email messages. A benign rule might, for example, automatically move an email to a particular folder in Outlook if it contains specific words from a specific sender. Malicious Outlook rules can be created that can trigger code execution when an adversary sends a specifically crafted email to that user.(Citation: SilentBreak Outlook Rules)\n\nOnce malicious rules have been added to the user’s mailbox, they will be loaded when Outlook is started. Malicious rules will execute when an adversary sends a specifically crafted email to the user.(Citation: SilentBreak Outlook Rules)",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "persistence"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--5d0d3609-d06d-49e1-b9c9-b544e0c618cb",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2019-12-13T16:46:18.927Z",
+      "modified": "2024-04-16T12:45:06.434Z",
+      "revoked": false,
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "url": "https://attack.mitre.org/techniques/T1505/003",
+          "external_id": "T1505.003"
+        },
+        {
+          "source_name": "NSA Cyber Mitigating Web Shells",
+          "description": " NSA Cybersecurity Directorate. (n.d.). Mitigating Web Shells. Retrieved July 22, 2021.",
+          "url": "https://github.com/nsacyber/Mitigating-Web-Shells"
+        },
+        {
+          "source_name": "volexity_0day_sophos_FW",
+          "description": "Adair, S., Lancaster, T., Volexity Threat Research. (2022, June 15). DriftingCloud: Zero-Day Sophos Firewall Exploitation and an Insidious Breach. Retrieved July 1, 2022.",
+          "url": "https://www.volexity.com/blog/2022/06/15/driftingcloud-zero-day-sophos-firewall-exploitation-and-an-insidious-breach/"
+        },
+        {
+          "source_name": "Lee 2013",
+          "description": "Lee, T., Hanzlik, D., Ahl, I. (2013, August 7). Breaking Down the China Chopper Web Shell - Part I. Retrieved March 27, 2015.",
+          "url": "https://www.fireeye.com/blog/threat-research/2013/08/breaking-down-the-china-chopper-web-shell-part-i.html"
+        },
+        {
+          "source_name": "US-CERT Alert TA15-314A Web Shells",
+          "description": "US-CERT. (2015, November 13). Compromised Web Servers and Web Shells - Threat Awareness and Guidance. Retrieved June 8, 2016.",
+          "url": "https://www.us-cert.gov/ncas/alerts/TA15-314A"
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "Web Shell",
+      "description": "Adversaries may backdoor web servers with web shells to establish persistent access to systems. A Web shell is a Web script that is placed on an openly accessible Web server to allow an adversary to access the Web server as a gateway into a network. A Web shell may provide a set of functions to execute or a command-line interface on the system that hosts the Web server.(Citation: volexity_0day_sophos_FW)\n\nIn addition to a server-side script, a Web shell may have a client interface program that is used to talk to the Web server (e.g. [China Chopper](https://attack.mitre.org/software/S0020) Web shell client).(Citation: Lee 2013)",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "persistence"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--8c32eb4d-805f-4fc5-bf60-c4d476c131b5",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2018-04-18T17:59:24.739Z",
+      "modified": "2024-04-12T03:46:49.507Z",
+      "revoked": false,
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "url": "https://attack.mitre.org/techniques/T1204",
+          "external_id": "T1204"
+        },
+        {
+          "source_name": "Krebs Discord Bookmarks 2023",
+          "description": "Brian Krebs. (2023, May 30). Discord Admins Hacked by Malicious Bookmarks. Retrieved January 2, 2024.",
+          "url": "https://krebsonsecurity.com/2023/05/discord-admins-hacked-by-malicious-bookmarks/"
+        },
+        {
+          "source_name": "Telephone Attack Delivery",
+          "description": "Selena Larson, Sam Scholten, Timothy Kromphardt. (2021, November 4). Caught Beneath the Landline: A 411 on Telephone Oriented Attack Delivery. Retrieved January 5, 2022.",
+          "url": "https://www.proofpoint.com/us/blog/threat-insight/caught-beneath-landline-411-telephone-oriented-attack-delivery"
+        },
+        {
+          "source_name": "Talos Roblox Scam 2023",
+          "description": "Tiago Pereira. (2023, November 2). Attackers use JavaScript URLs, API forms and more to scam users in popular online game “Roblox”. Retrieved January 2, 2024.",
+          "url": "https://blog.talosintelligence.com/roblox-scam-overview/"
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "User Execution",
+      "description": "An adversary may rely upon specific actions by a user in order to gain execution. Users may be subjected to social engineering to get them to execute malicious code by, for example, opening a malicious document file or link. These user actions will typically be observed as follow-on behavior from forms of [Phishing](https://attack.mitre.org/techniques/T1566).\n\nWhile [User Execution](https://attack.mitre.org/techniques/T1204) frequently occurs shortly after Initial Access it may occur at other phases of an intrusion, such as when an adversary places a file in a shared directory or on a user's desktop hoping that a user will click on it. This activity may also be seen shortly after [Internal Spearphishing](https://attack.mitre.org/techniques/T1534).\n\nAdversaries may also deceive users into performing actions such as enabling [Remote Access Software](https://attack.mitre.org/techniques/T1219), allowing direct control of the system to the adversary; running malicious JavaScript in their browser, allowing adversaries to [Steal Web Session Cookie](https://attack.mitre.org/techniques/T1539)s; or downloading and executing malware for [User Execution](https://attack.mitre.org/techniques/T1204).(Citation: Talos Roblox Scam 2023)(Citation: Krebs Discord Bookmarks 2023)\n\nFor example, tech support scams can be facilitated through [Phishing](https://attack.mitre.org/techniques/T1566), vishing, or various forms of user interaction. Adversaries can use a combination of these methods, such as spoofing and promoting toll-free numbers or call centers that are used to direct victims to malicious websites, to deliver and execute payloads containing malware or [Remote Access Software](https://attack.mitre.org/techniques/T1219).(Citation: Telephone Attack Delivery)",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "execution"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--34f1d81d-fe88-4f97-bd3b-a3164536255d",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2019-11-07T19:52:52.801Z",
+      "modified": "2021-08-16T21:26:09.296Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1137.006",
+          "url": "https://attack.mitre.org/techniques/T1137/006"
+        },
+        {
+          "url": "https://support.office.com/article/Add-or-remove-add-ins-0af570c4-5cf3-4fa9-9b88-403625a0b460",
+          "description": "Microsoft. (n.d.). Add or remove add-ins. Retrieved July 3, 2017.",
+          "source_name": "Microsoft Office Add-ins"
+        },
+        {
+          "url": "https://labs.mwrinfosecurity.com/blog/add-in-opportunities-for-office-persistence/",
+          "description": "Knowles, W. (2017, April 21). Add-In Opportunities for Office Persistence. Retrieved July 3, 2017.",
+          "source_name": "MRWLabs Office Persistence Add-ins"
+        },
+        {
+          "source_name": "FireEye Mail CDS 2018",
+          "url": "https://summit.fireeye.com/content/dam/fireeye-www/summit/cds-2018/presentations/cds18-technical-s03-youve-got-mail.pdf",
+          "description": "Caban, D. and Hirani, M. (2018, October 3). You’ve Got Mail! Enterprise Email Compromise. Retrieved April 22, 2019."
+        },
+        {
+          "source_name": "GlobalDotName Jun 2019",
+          "url": "https://www.221bluestreet.com/post/office-templates-and-globaldotname-a-stealthy-office-persistence-technique",
+          "description": "Shukrun, S. (2019, June 2). Office Templates and GlobalDotName - A Stealthy Office Persistence Technique. Retrieved August 26, 2019."
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "Add-ins",
+      "description": "Adversaries may abuse Microsoft Office add-ins to obtain persistence on a compromised system. Office add-ins can be used to add functionality to Office programs. (Citation: Microsoft Office Add-ins) There are different types of add-ins that can be used by the various Office products; including Word/Excel add-in Libraries (WLL/XLL), VBA add-ins, Office Component Object Model (COM) add-ins, automation add-ins, VBA Editor (VBE), Visual Studio Tools for Office (VSTO) add-ins, and Outlook add-ins. (Citation: MRWLabs Office Persistence Add-ins)(Citation: FireEye Mail CDS 2018)\n\nAdd-ins can be used to obtain persistence because they can be set to execute code when an Office application starts. ",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "persistence"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--43e7dc91-05b2-474c-b9ac-2ed4fe101f4d",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2017-05-31T21:30:47.843Z",
+      "modified": "2023-03-30T21:01:45.488Z",
+      "revoked": false,
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "url": "https://attack.mitre.org/techniques/T1055",
+          "external_id": "T1055"
+        },
+        {
+          "source_name": "GNU Acct",
+          "description": "GNU. (2010, February 5). The GNU Accounting Utilities. Retrieved December 20, 2017.",
+          "url": "https://www.gnu.org/software/acct/"
+        },
+        {
+          "source_name": "Elastic Process Injection July 2017",
+          "description": "Hosseini, A. (2017, July 18). Ten Process Injection Techniques: A Technical Survey Of Common And Trending Process Injection Techniques. Retrieved December 7, 2017.",
+          "url": "https://www.endgame.com/blog/technical-blog/ten-process-injection-techniques-technical-survey-common-and-trending-process"
+        },
+        {
+          "source_name": "RHEL auditd",
+          "description": "Jahoda, M. et al.. (2017, March 14). redhat Security Guide - Chapter 7 - System Auditing. Retrieved December 20, 2017.",
+          "url": "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security_guide/chap-system_auditing"
+        },
+        {
+          "source_name": "ArtOfMemoryForensics",
+          "description": "Ligh, M.H. et al.. (2014, July). The Art of Memory Forensics: Detecting Malware and Threats in Windows, Linux, and Mac Memory. Retrieved December 20, 2017."
+        },
+        {
+          "source_name": "Microsoft Sysmon v6 May 2017",
+          "description": "Russinovich, M. & Garnier, T. (2017, May 22). Sysmon v6.20. Retrieved December 13, 2017.",
+          "url": "https://docs.microsoft.com/sysinternals/downloads/sysmon"
+        },
+        {
+          "source_name": "Chokepoint preload rootkits",
+          "description": "stderr. (2014, February 14). Detecting Userland Preload Rootkits. Retrieved December 20, 2017.",
+          "url": "http://www.chokepoint.net/2014/02/detecting-userland-preload-rootkits.html"
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "Process Injection",
+      "description": "Adversaries may inject code into processes in order to evade process-based defenses as well as possibly elevate privileges. Process injection is a method of executing arbitrary code in the address space of a separate live process. Running code in the context of another process may allow access to the process's memory, system/network resources, and possibly elevated privileges. Execution via process injection may also evade detection from security products since the execution is masked under a legitimate process. \n\nThere are many different ways to inject code into a process, many of which abuse legitimate functionalities. These implementations exist for every major OS but are typically platform specific. \n\nMore sophisticated samples may perform multiple process injections to segment modules and further evade detection, utilizing named pipes or other inter-process communication (IPC) mechanisms as a communication channel. ",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "defense-evasion"
+        },
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "privilege-escalation"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--65f2d882-3f41-4d48-8a06-29af77ec9f90",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2020-02-11T18:41:44.783Z",
+      "modified": "2023-12-27T17:57:20.003Z",
+      "revoked": false,
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "url": "https://attack.mitre.org/techniques/T1003/001",
+          "external_id": "T1003.001"
+        },
+        {
+          "source_name": "Medium Detecting Attempts to Steal Passwords from Memory",
+          "description": "French, D. (2018, October 2). Detecting Attempts to Steal Passwords from Memory. Retrieved October 11, 2019.",
+          "url": "https://medium.com/threatpunter/detecting-attempts-to-steal-passwords-from-memory-558f16dce4ea"
+        },
+        {
+          "source_name": "Deep Instinct LSASS",
+          "description": "Gilboa, A. (2021, February 16). LSASS Memory Dumps are Stealthier than Ever Before - Part 2. Retrieved December 27, 2023.",
+          "url": "https://www.deepinstinct.com/blog/lsass-memory-dumps-are-stealthier-than-ever-before-part-2"
+        },
+        {
+          "source_name": "Graeber 2014",
+          "description": "Graeber, M. (2014, October). Analysis of Malicious Security Support Provider DLLs. Retrieved March 1, 2017.",
+          "url": "http://docplayer.net/20839173-Analysis-of-malicious-security-support-provider-dlls.html"
+        },
+        {
+          "source_name": "Volexity Exchange Marauder March 2021",
+          "description": "Gruzweig, J. et al. (2021, March 2). Operation Exchange Marauder: Active Exploitation of Multiple Zero-Day Microsoft Exchange Vulnerabilities. Retrieved March 3, 2021.",
+          "url": "https://www.volexity.com/blog/2021/03/02/active-exploitation-of-microsoft-exchange-zero-day-vulnerabilities/"
+        },
+        {
+          "source_name": "Powersploit",
+          "description": "PowerSploit. (n.d.). Retrieved December 4, 2014.",
+          "url": "https://github.com/mattifestation/PowerSploit"
+        },
+        {
+          "source_name": "Symantec Attacks Against Government Sector",
+          "description": "Symantec. (2021, June 10). Attacks Against the Government Sector. Retrieved September 28, 2021.",
+          "url": "https://symantec.broadcom.com/hubfs/Attacks-Against-Government-Sector.pdf"
+        },
+        {
+          "source_name": "TechNet Blogs Credential Protection",
+          "description": "Wilson, B. (2016, April 18). The Importance of KB2871997 and KB2928120 for Credential Protection. Retrieved April 11, 2018.",
+          "url": "https://blogs.technet.microsoft.com/askpfeplat/2016/04/18/the-importance-of-kb2871997-and-kb2928120-for-credential-protection/"
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "LSASS Memory",
+      "description": "Adversaries may attempt to access credential material stored in the process memory of the Local Security Authority Subsystem Service (LSASS). After a user logs on, the system generates and stores a variety of credential materials in LSASS process memory. These credential materials can be harvested by an administrative user or SYSTEM and used to conduct [Lateral Movement](https://attack.mitre.org/tactics/TA0008) using [Use Alternate Authentication Material](https://attack.mitre.org/techniques/T1550).\n\nAs well as in-memory techniques, the LSASS process memory can be dumped from the target host and analyzed on a local system.\n\nFor example, on the target host use procdump:\n\n* <code>procdump -ma lsass.exe lsass_dump</code>\n\nLocally, mimikatz can be run using:\n\n* <code>sekurlsa::Minidump lsassdump.dmp</code>\n* <code>sekurlsa::logonPasswords</code>\n\nBuilt-in Windows tools such as `comsvcs.dll` can also be used:\n\n* <code>rundll32.exe C:\\Windows\\System32\\comsvcs.dll MiniDump PID  lsass.dmp full</code>(Citation: Volexity Exchange Marauder March 2021)(Citation: Symantec Attacks Against Government Sector)\n\nSimilar to [Image File Execution Options Injection](https://attack.mitre.org/techniques/T1546/012), the silent process exit mechanism can be abused to create a memory dump of `lsass.exe` through Windows Error Reporting (`WerFault.exe`).(Citation: Deep Instinct LSASS)\n\nWindows Security Support Provider (SSP) DLLs are loaded into LSASS process at system start. Once loaded into the LSA, SSP DLLs have access to encrypted and plaintext passwords that are stored in Windows, such as any logged-on user's Domain password or smart card PINs. The SSP configuration is stored in two Registry keys: <code>HKLM\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\Security Packages</code> and <code>HKLM\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\OSConfig\\Security Packages</code>. An adversary may modify these Registry keys to add new SSPs, which will be loaded the next time the system boots, or when the AddSecurityPackage Windows API function is called.(Citation: Graeber 2014)\n\nThe following SSPs can be used to access credentials:\n\n* Msv: Interactive logons, batch logons, and service logons are done through the MSV authentication package.\n* Wdigest: The Digest Authentication protocol is designed for use with Hypertext Transfer Protocol (HTTP) and Simple Authentication Security Layer (SASL) exchanges.(Citation: TechNet Blogs Credential Protection)\n* Kerberos: Preferred for mutual client-server domain authentication in Windows 2000 and later.\n* CredSSP:  Provides SSO and Network Level Authentication for Remote Desktop Services.(Citation: TechNet Blogs Credential Protection)\n",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "credential-access"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--79a47ad0-fc3b-4821-9f01-a026b1ddba21",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2019-11-07T20:29:17.788Z",
+      "modified": "2021-08-16T21:27:10.873Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1137.001",
+          "url": "https://attack.mitre.org/techniques/T1137/001"
+        },
+        {
+          "url": "https://support.office.com/article/Change-the-Normal-template-Normal-dotm-06de294b-d216-47f6-ab77-ccb5166f98ea",
+          "description": "Microsoft. (n.d.). Change the Normal template (Normal.dotm). Retrieved July 3, 2017.",
+          "source_name": "Microsoft Change Normal Template"
+        },
+        {
+          "url": "https://msdn.microsoft.com/en-us/vba/office-shared-vba/articles/getting-started-with-vba-in-office",
+          "description": "Austin, J. (2017, June 6). Getting Started with VBA in Office. Retrieved July 3, 2017.",
+          "source_name": "MSDN VBA in Office"
+        },
+        {
+          "url": "https://enigma0x3.net/2014/01/23/maintaining-access-with-normal-dotm/comment-page-1/",
+          "description": "Nelson, M. (2014, January 23). Maintaining Access with normal.dotm. Retrieved July 3, 2017.",
+          "source_name": "enigma0x3 normal.dotm"
+        },
+        {
+          "url": "http://www.hexacorn.com/blog/2017/04/19/beyond-good-ol-run-key-part-62/",
+          "description": "Hexacorn. (2017, April 17). Beyond good ol’ Run key, Part 62. Retrieved July 3, 2017.",
+          "source_name": "Hexacorn Office Template Macros"
+        },
+        {
+          "source_name": "GlobalDotName Jun 2019",
+          "url": "https://www.221bluestreet.com/post/office-templates-and-globaldotname-a-stealthy-office-persistence-technique",
+          "description": "Shukrun, S. (2019, June 2). Office Templates and GlobalDotName - A Stealthy Office Persistence Technique. Retrieved August 26, 2019."
+        },
+        {
+          "source_name": "CrowdStrike Outlook Forms",
+          "url": "https://malware.news/t/using-outlook-forms-for-lateral-movement-and-persistence/13746",
+          "description": "Parisi, T., et al. (2017, July). Using Outlook Forms for Lateral Movement and Persistence. Retrieved February 5, 2019."
+        },
+        {
+          "source_name": "Outlook Today Home Page",
+          "url": "https://medium.com/@bwtech789/outlook-today-homepage-persistence-33ea9b505943",
+          "description": "Soutcast. (2018, September 14). Outlook Today Homepage Persistence. Retrieved February 5, 2019."
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "Office Template Macros",
+      "description": "Adversaries may abuse Microsoft Office templates to obtain persistence on a compromised system. Microsoft Office contains templates that are part of common Office applications and are used to customize styles. The base templates within the application are used each time an application starts. (Citation: Microsoft Change Normal Template)\n\nOffice Visual Basic for Applications (VBA) macros (Citation: MSDN VBA in Office) can be inserted into the base template and used to execute code when the respective Office application starts in order to obtain persistence. Examples for both Word and Excel have been discovered and published. By default, Word has a Normal.dotm template created that can be modified to include a malicious macro. Excel does not have a template file created by default, but one can be added that will automatically be loaded.(Citation: enigma0x3 normal.dotm)(Citation: Hexacorn Office Template Macros) Shared templates may also be stored and pulled from remote locations.(Citation: GlobalDotName Jun 2019) \n\nWord Normal.dotm location:<br>\n<code>C:\\Users\\&lt;username&gt;\\AppData\\Roaming\\Microsoft\\Templates\\Normal.dotm</code>\n\nExcel Personal.xlsb location:<br>\n<code>C:\\Users\\&lt;username&gt;\\AppData\\Roaming\\Microsoft\\Excel\\XLSTART\\PERSONAL.XLSB</code>\n\nAdversaries may also change the location of the base template to point to their own by hijacking the application's search order, e.g. Word 2016 will first look for Normal.dotm under <code>C:\\Program Files (x86)\\Microsoft Office\\root\\Office16\\</code>, or by modifying the GlobalDotName registry key. By modifying the GlobalDotName registry key an adversary can specify an arbitrary location, file name, and file extension to use for the template that will be loaded on application startup. To abuse GlobalDotName, adversaries may first need to register the template as a trusted document or place it in a trusted location.(Citation: GlobalDotName Jun 2019) \n\nAn adversary may need to enable macros to execute unrestricted depending on the system or enterprise security policy on use of macros.",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "persistence"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--106c0cf6-bf73-4601-9aa8-0945c2715ec5",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2020-01-10T16:03:18.865Z",
+      "modified": "2024-02-15T14:14:03.942Z",
+      "revoked": false,
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "url": "https://attack.mitre.org/techniques/T1543",
+          "external_id": "T1543"
+        },
+        {
+          "source_name": "AppleDocs Launch Agent Daemons",
+          "description": "Apple. (n.d.). Creating Launch Daemons and Agents. Retrieved July 10, 2017.",
+          "url": "https://developer.apple.com/library/content/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html"
+        },
+        {
+          "source_name": "TechNet Services",
+          "description": "Microsoft. (n.d.). Services. Retrieved June 7, 2016.",
+          "url": "https://technet.microsoft.com/en-us/library/cc772408.aspx"
+        },
+        {
+          "source_name": "OSX Malware Detection",
+          "description": "Patrick Wardle. (2016, February 29). Let's Play Doctor: Practical OS X Malware Detection & Analysis. Retrieved July 10, 2017.",
+          "url": "https://www.synack.com/wp-content/uploads/2016/03/RSA_OSX_Malware.pdf"
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "Create or Modify System Process",
+      "description": "Adversaries may create or modify system-level processes to repeatedly execute malicious payloads as part of persistence. When operating systems boot up, they can start processes that perform background system functions. On Windows and Linux, these system processes are referred to as services.(Citation: TechNet Services) On macOS, launchd processes known as [Launch Daemon](https://attack.mitre.org/techniques/T1543/004) and [Launch Agent](https://attack.mitre.org/techniques/T1543/001) are run to finish system initialization and load user specific parameters.(Citation: AppleDocs Launch Agent Daemons) \n\nAdversaries may install new services, daemons, or agents that can be configured to execute at startup or a repeatable interval in order to establish persistence. Similarly, adversaries may modify existing services, daemons, or agents to achieve the same effect.  \n\nServices, daemons, or agents may be created with administrator privileges but executed under root/SYSTEM privileges. Adversaries may leverage this functionality to create or modify system processes in order to escalate privileges.(Citation: OSX Malware Detection)  ",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "persistence"
+        },
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "privilege-escalation"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--232b7f21-adf9-4b42-b936-b9d6f7df856e",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2020-03-11T14:49:36.954Z",
+      "modified": "2023-04-21T12:22:19.740Z",
+      "revoked": false,
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "url": "https://attack.mitre.org/techniques/T1204/002",
+          "external_id": "T1204.002"
+        },
+        {
+          "source_name": "Password Protected Word Docs",
+          "description": "Lawrence Abrams. (2017, July 12). PSA: Don't Open SPAM Containing Password Protected Word Docs. Retrieved January 5, 2022.",
+          "url": "https://www.bleepingcomputer.com/news/security/psa-dont-open-spam-containing-password-protected-word-docs/"
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "Malicious File",
+      "description": "An adversary may rely upon a user opening a malicious file in order to gain execution. Users may be subjected to social engineering to get them to open a file that will lead to code execution. This user action will typically be observed as follow-on behavior from [Spearphishing Attachment](https://attack.mitre.org/techniques/T1566/001). Adversaries may use several types of files that require a user to execute them, including .doc, .pdf, .xls, .rtf, .scr, .exe, .lnk, .pif, and .cpl.\n\nAdversaries may employ various forms of [Masquerading](https://attack.mitre.org/techniques/T1036) and [Obfuscated Files or Information](https://attack.mitre.org/techniques/T1027) to increase the likelihood that a user will open and successfully execute a malicious file. These methods may include using a familiar naming convention and/or password protecting the file and supplying instructions to a user on how to open it.(Citation: Password Protected Word Docs) \n\nWhile [Malicious File](https://attack.mitre.org/techniques/T1204/002) frequently occurs shortly after Initial Access it may occur at other phases of an intrusion, such as when an adversary places a file in a shared directory or on a user's desktop hoping that a user will click on it. This activity may also be seen shortly after [Internal Spearphishing](https://attack.mitre.org/techniques/T1534).",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "execution"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--391d824f-0ef1-47a0-b0ee-c59a75e27670",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2017-05-31T21:31:17.472Z",
+      "modified": "2023-10-13T16:01:07.538Z",
+      "revoked": false,
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "url": "https://attack.mitre.org/techniques/T1106",
+          "external_id": "T1106"
+        },
+        {
+          "source_name": "MACOS Cocoa",
+          "description": "Apple. (2015, September 16). Cocoa Application Layer. Retrieved June 25, 2020.",
+          "url": "https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/OSX_Technology_Overview/CocoaApplicationLayer/CocoaApplicationLayer.html#//apple_ref/doc/uid/TP40001067-CH274-SW1"
+        },
+        {
+          "source_name": "Apple Core Services",
+          "description": "Apple. (n.d.). Core Services. Retrieved June 25, 2020.",
+          "url": "https://developer.apple.com/documentation/coreservices"
+        },
+        {
+          "source_name": "macOS Foundation",
+          "description": "Apple. (n.d.). Foundation. Retrieved July 1, 2020.",
+          "url": "https://developer.apple.com/documentation/foundation"
+        },
+        {
+          "source_name": "OutFlank System Calls",
+          "description": "de Plaa, C. (2019, June 19). Red Team Tactics: Combining Direct System Calls and sRDI to bypass AV/EDR. Retrieved September 29, 2021.",
+          "url": "https://outflank.nl/blog/2019/06/19/red-team-tactics-combining-direct-system-calls-and-srdi-to-bypass-av-edr/"
+        },
+        {
+          "source_name": "Redops Syscalls",
+          "description": "Feichter, D. (2023, June 30). Direct Syscalls vs Indirect Syscalls. Retrieved September 27, 2023.",
+          "url": "https://redops.at/en/blog/direct-syscalls-vs-indirect-syscalls"
+        },
+        {
+          "source_name": "GNU Fork",
+          "description": "Free Software Foundation, Inc.. (2020, June 18). Creating a Process. Retrieved June 25, 2020.",
+          "url": "https://www.gnu.org/software/libc/manual/html_node/Creating-a-Process.html"
+        },
+        {
+          "source_name": "CyberBit System Calls",
+          "description": "Gavriel, H. (2018, November 27). Malware Mitigation when Direct System Calls are Used. Retrieved September 29, 2021.",
+          "url": "https://www.cyberbit.com/blog/endpoint-security/malware-mitigation-when-direct-system-calls-are-used/"
+        },
+        {
+          "source_name": "GLIBC",
+          "description": "glibc developer community. (2020, February 1). The GNU C Library (glibc). Retrieved June 25, 2020.",
+          "url": "https://www.gnu.org/software/libc/"
+        },
+        {
+          "source_name": "LIBC",
+          "description": "Kerrisk, M. (2016, December 12). libc(7) — Linux manual page. Retrieved June 25, 2020.",
+          "url": "https://man7.org/linux/man-pages//man7/libc.7.html"
+        },
+        {
+          "source_name": "Linux Kernel API",
+          "description": "Linux Kernel Organization, Inc. (n.d.). The Linux Kernel API. Retrieved June 25, 2020.",
+          "url": "https://www.kernel.org/doc/html/v4.12/core-api/kernel-api.html"
+        },
+        {
+          "source_name": "MDSec System Calls",
+          "description": "MDSec Research. (2020, December). Bypassing User-Mode Hooks and Direct Invocation of System Calls for Red Teams. Retrieved September 29, 2021.",
+          "url": "https://www.mdsec.co.uk/2020/12/bypassing-user-mode-hooks-and-direct-invocation-of-system-calls-for-red-teams/"
+        },
+        {
+          "source_name": "Microsoft CreateProcess",
+          "description": "Microsoft. (n.d.). CreateProcess function. Retrieved December 5, 2014.",
+          "url": "http://msdn.microsoft.com/en-us/library/ms682425"
+        },
+        {
+          "source_name": "Microsoft Win32",
+          "description": "Microsoft. (n.d.). Programming reference for the Win32 API. Retrieved March 15, 2020.",
+          "url": "https://docs.microsoft.com/en-us/windows/win32/api/"
+        },
+        {
+          "source_name": "Microsoft NET",
+          "description": "Microsoft. (n.d.). What is .NET Framework?. Retrieved March 15, 2020.",
+          "url": "https://dotnet.microsoft.com/learn/dotnet/what-is-dotnet-framework"
+        },
+        {
+          "source_name": "NT API Windows",
+          "description": "The NTinterlnals.net team. (n.d.). Nowak, T. Retrieved June 25, 2020.",
+          "url": "https://undocumented.ntinternals.net/"
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "Native API",
+      "description": "Adversaries may interact with the native OS application programming interface (API) to execute behaviors. Native APIs provide a controlled means of calling low-level OS services within the kernel, such as those involving hardware/devices, memory, and processes.(Citation: NT API Windows)(Citation: Linux Kernel API) These native APIs are leveraged by the OS during system boot (when other system components are not yet initialized) as well as carrying out tasks and requests during routine operations.\n\nAdversaries may abuse these OS API functions as a means of executing behaviors. Similar to [Command and Scripting Interpreter](https://attack.mitre.org/techniques/T1059), the native API and its hierarchy of interfaces provide mechanisms to interact with and utilize various components of a victimized system.\n\nNative API functions (such as <code>NtCreateProcess</code>) may be directed invoked via system calls / syscalls, but these features are also often exposed to user-mode applications via interfaces and libraries.(Citation: OutFlank System Calls)(Citation: CyberBit System Calls)(Citation: MDSec System Calls) For example, functions such as the Windows API <code>CreateProcess()</code> or GNU <code>fork()</code> will allow programs and scripts to start other processes.(Citation: Microsoft CreateProcess)(Citation: GNU Fork) This may allow API callers to execute a binary, run a CLI command, load modules, etc. as thousands of similar API functions exist for various system operations.(Citation: Microsoft Win32)(Citation: LIBC)(Citation: GLIBC)\n\nHigher level software frameworks, such as Microsoft .NET and macOS Cocoa, are also available to interact with native APIs. These frameworks typically provide language wrappers/abstractions to API functionalities and are designed for ease-of-use/portability of code.(Citation: Microsoft NET)(Citation: Apple Core Services)(Citation: MACOS Cocoa)(Citation: macOS Foundation)\n\nAdversaries may use assembly to directly or in-directly invoke syscalls in an attempt to subvert defensive sensors and detection signatures such as user mode API-hooks.(Citation: Redops Syscalls) Adversaries may also attempt to tamper with sensors and defensive tools associated with API monitoring, such as unhooking monitored functions via [Disable or Modify Tools](https://attack.mitre.org/techniques/T1562/001).",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "execution"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--2959d63f-73fd-46a1-abd2-109d7dcede32",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2020-01-17T19:13:50.402Z",
+      "modified": "2024-04-11T19:25:51.394Z",
+      "revoked": false,
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "url": "https://attack.mitre.org/techniques/T1543/003",
+          "external_id": "T1543.003"
+        },
+        {
+          "source_name": "Microsoft Windows Event Forwarding FEB 2018",
+          "description": "Hardy, T. & Hall, J. (2018, February 15). Use Windows Event Forwarding to help with intrusion detection. Retrieved August 7, 2018.",
+          "url": "https://docs.microsoft.com/windows/security/threat-protection/use-windows-event-forwarding-to-assist-in-intrusion-detection"
+        },
+        {
+          "source_name": "ESET InvisiMole June 2020",
+          "description": "Hromcova, Z. and Cherpanov, A. (2020, June). INVISIMOLE: THE HIDDEN PART OF THE STORY. Retrieved July 16, 2020.",
+          "url": "https://www.welivesecurity.com/wp-content/uploads/2020/06/ESET_InvisiMole.pdf"
+        },
+        {
+          "source_name": "SANS 1",
+          "description": "Joshua Wright. (2020, October 13). Retrieved March 22, 2024.",
+          "url": "https://www.sans.org/blog/red-team-tactics-hiding-windows-services/"
+        },
+        {
+          "source_name": "SANS 2",
+          "description": "Joshua Wright. (2020, October 14). Retrieved March 22, 2024.",
+          "url": "https://www.sans.org/blog/defense-spotlight-finding-hidden-windows-services/"
+        },
+        {
+          "source_name": "TechNet Services",
+          "description": "Microsoft. (n.d.). Services. Retrieved June 7, 2016.",
+          "url": "https://technet.microsoft.com/en-us/library/cc772408.aspx"
+        },
+        {
+          "source_name": "Microsoft 4697 APR 2017",
+          "description": "Miroshnikov, A. & Hall, J. (2017, April 18). 4697(S): A service was installed in the system. Retrieved August 7, 2018.",
+          "url": "https://docs.microsoft.com/windows/security/threat-protection/auditing/event-4697"
+        },
+        {
+          "source_name": "Symantec W.32 Stuxnet Dossier",
+          "description": "Nicolas Falliere, Liam O. Murchu, Eric Chien. (2011, February). W32.Stuxnet Dossier. Retrieved December 7, 2020.",
+          "url": "https://www.wired.com/images_blogs/threatlevel/2010/11/w32_stuxnet_dossier.pdf"
+        },
+        {
+          "source_name": "Unit42 AcidBox June 2020",
+          "description": "Reichel, D. and Idrizovic, E. (2020, June 17). AcidBox: Rare Malware Repurposing Turla Group Exploit Targeted Russian Organizations. Retrieved March 16, 2021.",
+          "url": "https://unit42.paloaltonetworks.com/acidbox-rare-malware/"
+        },
+        {
+          "source_name": "TechNet Autoruns",
+          "description": "Russinovich, M. (2016, January 4). Autoruns for Windows v13.51. Retrieved June 6, 2016.",
+          "url": "https://technet.microsoft.com/en-us/sysinternals/bb963902"
+        },
+        {
+          "source_name": "Crowdstrike DriveSlayer February 2022",
+          "description": "Thomas, W. et al. (2022, February 25). CrowdStrike Falcon Protects from New Wiper Malware Used in Ukraine Cyberattacks. Retrieved March 25, 2022.",
+          "url": "https://www.crowdstrike.com/blog/how-crowdstrike-falcon-protects-against-wiper-malware-used-in-ukraine-attacks/"
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "Windows Service",
+      "description": "Adversaries may create or modify Windows services to repeatedly execute malicious payloads as part of persistence. When Windows boots up, it starts programs or applications called services that perform background system functions.(Citation: TechNet Services) Windows service configuration information, including the file path to the service's executable or recovery programs/commands, is stored in the Windows Registry.\n\nAdversaries may install a new service or modify an existing service to execute at startup in order to persist on a system. Service configurations can be set or modified using system utilities (such as sc.exe), by directly modifying the Registry, or by interacting directly with the Windows API. \n\nAdversaries may also use services to install and execute malicious drivers. For example, after dropping a driver file (ex: `.sys`) to disk, the payload can be loaded and registered via [Native API](https://attack.mitre.org/techniques/T1106) functions such as `CreateServiceW()` (or manually via functions such as `ZwLoadDriver()` and `ZwSetValueKey()`), by creating the required service Registry values (i.e. [Modify Registry](https://attack.mitre.org/techniques/T1112)), or by using command-line utilities such as `PnPUtil.exe`.(Citation: Symantec W.32 Stuxnet Dossier)(Citation: Crowdstrike DriveSlayer February 2022)(Citation: Unit42 AcidBox June 2020) Adversaries may leverage these drivers as [Rootkit](https://attack.mitre.org/techniques/T1014)s to hide the presence of malicious activity on a system. Adversaries may also load a signed yet vulnerable driver onto a compromised machine (known as \"Bring Your Own Vulnerable Driver\" (BYOVD)) as part of [Exploitation for Privilege Escalation](https://attack.mitre.org/techniques/T1068).(Citation: ESET InvisiMole June 2020)(Citation: Unit42 AcidBox June 2020)\n\nServices may be created with administrator privileges but are executed under SYSTEM privileges, so an adversary may also use a service to escalate privileges. Adversaries may also directly start services through [Service Execution](https://attack.mitre.org/techniques/T1569/002).\n\nTo make detection analysis more challenging, malicious services may also incorporate [Masquerade Task or Service](https://attack.mitre.org/techniques/T1036/004) (ex: using a service and/or payload name related to a legitimate OS or benign software component). Adversaries may also create ‘hidden’ services (i.e., [Hide Artifacts](https://attack.mitre.org/techniques/T1564)), for example by using the `sc sdset` command to set service permissions via the Service Descriptor Definition Language (SDDL). This may hide a Windows service from the view of standard service enumeration methods such as `Get-Service`, `sc query`, and `services.exe`.(Citation: SANS 1)(Citation: SANS 2)",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "persistence"
+        },
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "privilege-escalation"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--28170e17-8384-415c-8486-2e6b294cb803",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2021-06-23T20:00:27.600Z",
+      "modified": "2021-08-31T14:51:47.352Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1562.009",
+          "url": "https://attack.mitre.org/techniques/T1562/009"
+        },
+        {
+          "source_name": "Microsoft Safe Mode",
+          "url": "https://support.microsoft.com/en-us/windows/start-your-pc-in-safe-mode-in-windows-10-92c27cff-db89-8644-1ce4-b3e5e56fe234",
+          "description": "Microsoft. (n.d.). Start your PC in safe mode in Windows 10. Retrieved June 23, 2021."
+        },
+        {
+          "source_name": "Sophos Snatch Ransomware 2019",
+          "url": "https://news.sophos.com/en-us/2019/12/09/snatch-ransomware-reboots-pcs-into-safe-mode-to-bypass-protection/",
+          "description": "Sophos. (2019, December 9). Snatch ransomware reboots PCs into Safe Mode to bypass protection. Retrieved June 23, 2021."
+        },
+        {
+          "source_name": "Microsoft bcdedit 2021",
+          "url": "https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/bcdedit",
+          "description": "Microsoft. (2021, May 27). bcdedit. Retrieved June 23, 2021."
+        },
+        {
+          "source_name": "CyberArk Labs Safe Mode 2016",
+          "url": "https://www.cyberark.com/resources/blog/cyberark-labs-from-safe-mode-to-domain-compromise",
+          "description": "Naim, D.. (2016, September 15). CyberArk Labs: From Safe Mode to Domain Compromise. Retrieved June 23, 2021."
+        },
+        {
+          "source_name": "Cybereason Nocturnus MedusaLocker 2020",
+          "url": "https://www.cybereason.com/blog/medusalocker-ransomware",
+          "description": "Cybereason Nocturnus. (2020, November 19). Cybereason vs. MedusaLocker Ransomware. Retrieved June 23, 2021."
+        },
+        {
+          "source_name": "BleepingComputer REvil 2021",
+          "url": "https://www.bleepingcomputer.com/news/security/revil-ransomware-has-a-new-windows-safe-mode-encryption-mode/",
+          "description": "Abrams, L. (2021, March 19). REvil ransomware has a new ‘Windows Safe Mode’ encryption mode. Retrieved June 23, 2021."
+        },
+        {
+          "source_name": "Microsoft Bootcfg",
+          "url": "https://docs.microsoft.com/windows-server/administration/windows-commands/bootcfg",
+          "description": "Gerend, J. et al. (2017, October 16). bootcfg. Retrieved August 30, 2021."
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "Safe Mode Boot",
+      "description": "Adversaries may abuse Windows safe mode to disable endpoint defenses. Safe mode starts up the Windows operating system with a limited set of drivers and services. Third-party security software such as endpoint detection and response (EDR) tools may not start after booting Windows in safe mode. There are two versions of safe mode: Safe Mode and Safe Mode with Networking. It is possible to start additional services after a safe mode boot.(Citation: Microsoft Safe Mode)(Citation: Sophos Snatch Ransomware 2019)\n\nAdversaries may abuse safe mode to disable endpoint defenses that may not start with a limited boot. Hosts can be forced into safe mode after the next reboot via modifications to Boot Configuration Data (BCD) stores, which are files that manage boot application settings.(Citation: Microsoft bcdedit 2021)\n\nAdversaries may also add their malicious applications to the list of minimal services that start in safe mode by modifying relevant Registry values (i.e. [Modify Registry](https://attack.mitre.org/techniques/T1112)). Malicious [Component Object Model](https://attack.mitre.org/techniques/T1559/001) (COM) objects may also be registered and loaded in safe mode.(Citation: Sophos Snatch Ransomware 2019)(Citation: CyberArk Labs Safe Mode 2016)(Citation: Cybereason Nocturnus MedusaLocker 2020)(Citation: BleepingComputer REvil 2021)",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "defense-evasion"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--910906dd-8c0a-475a-9cc1-5e029e2fad58",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2020-01-24T14:07:56.276Z",
+      "modified": "2024-04-13T14:08:20.882Z",
+      "revoked": false,
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "url": "https://attack.mitre.org/techniques/T1546/003",
+          "external_id": "T1546.003"
+        },
+        {
+          "source_name": "FireEye WMI 2015",
+          "description": "Ballenthin, W., et al. (2015). Windows Management Instrumentation (WMI) Offense, Defense, and Forensics. Retrieved March 30, 2016.",
+          "url": "https://www.fireeye.com/content/dam/fireeye-www/global/en/current-threats/pdfs/wp-windows-management-instrumentation.pdf"
+        },
+        {
+          "source_name": "Dell WMI Persistence",
+          "description": "Dell SecureWorks Counter Threat Unit™ (CTU) Research Team. (2016, March 28). A Novel WMI Persistence Implementation. Retrieved March 30, 2016.",
+          "url": "https://www.secureworks.com/blog/wmi-persistence"
+        },
+        {
+          "source_name": "FireEye WMI SANS 2015",
+          "description": "Devon Kerr. (2015). There's Something About WMI. Retrieved May 4, 2020.",
+          "url": "https://www.fireeye.com/content/dam/fireeye-www/services/pdfs/sans-dfir-2015.pdf"
+        },
+        {
+          "source_name": "Medium Detecting WMI Persistence",
+          "description": "French, D. (2018, October 9). Detecting & Removing an Attacker’s WMI Persistence. Retrieved October 11, 2019.",
+          "url": "https://medium.com/threatpunter/detecting-removing-wmi-persistence-60ccbb7dff96"
+        },
+        {
+          "source_name": "Elastic - Hunting for Persistence Part 1",
+          "description": "French, D., Murphy, B. (2020, March 24). Adversary tradecraft 101: Hunting for persistence using Elastic Security (Part 1). Retrieved December 21, 2020.",
+          "url": "https://www.elastic.co/blog/hunting-for-persistence-using-elastic-security-part-1"
+        },
+        {
+          "source_name": "Mandiant M-Trends 2015",
+          "description": "Mandiant. (2015, February 24). M-Trends 2015: A View from the Front Lines. Retrieved May 18, 2016.",
+          "url": "https://www2.fireeye.com/rs/fireye/images/rpt-m-trends-2015.pdf"
+        },
+        {
+          "source_name": "Microsoft Register-WmiEvent",
+          "description": "Microsoft. (n.d.). Retrieved January 24, 2020.",
+          "url": "https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/register-wmievent?view=powershell-5.1"
+        },
+        {
+          "source_name": "TechNet Autoruns",
+          "description": "Russinovich, M. (2016, January 4). Autoruns for Windows v13.51. Retrieved June 6, 2016.",
+          "url": "https://technet.microsoft.com/en-us/sysinternals/bb963902"
+        },
+        {
+          "source_name": "Microsoft MOF May 2018",
+          "description": "Satran, M. (2018, May 30). Managed Object Format (MOF). Retrieved January 24, 2020.",
+          "url": "https://docs.microsoft.com/en-us/windows/win32/wmisdk/managed-object-format--mof-"
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "Windows Management Instrumentation Event Subscription",
+      "description": "Adversaries may establish persistence and elevate privileges by executing malicious content triggered by a Windows Management Instrumentation (WMI) event subscription. WMI can be used to install event filters, providers, consumers, and bindings that execute code when a defined event occurs. Examples of events that may be subscribed to are the wall clock time, user login, or the computer's uptime.(Citation: Mandiant M-Trends 2015)\n\nAdversaries may use the capabilities of WMI to subscribe to an event and execute arbitrary code when that event occurs, providing persistence on a system.(Citation: FireEye WMI SANS 2015)(Citation: FireEye WMI 2015) Adversaries may also compile WMI scripts – using `mofcomp.exe`  –into Windows Management Object (MOF) files (.mof extension) that can be used to create a malicious subscription.(Citation: Dell WMI Persistence)(Citation: Microsoft MOF May 2018)\n\nWMI subscription execution is proxied by the WMI Provider Host process (WmiPrvSe.exe) and thus may result in elevated SYSTEM privileges.",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "privilege-escalation"
+        },
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "persistence"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--a9e2cea0-c805-4bf8-9e31-f5f0513a3634",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2019-11-07T20:06:02.624Z",
+      "modified": "2021-08-16T21:29:19.697Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1137.003",
+          "url": "https://attack.mitre.org/techniques/T1137/003"
+        },
+        {
+          "source_name": "SensePost Outlook Forms",
+          "url": "https://sensepost.com/blog/2017/outlook-forms-and-shells/",
+          "description": "Stalmans, E. (2017, April 28). Outlook Forms and Shells. Retrieved February 4, 2019."
+        },
+        {
+          "source_name": "Microsoft Detect Outlook Forms",
+          "url": "https://docs.microsoft.com/en-us/office365/securitycompliance/detect-and-remediate-outlook-rules-forms-attack",
+          "description": "Fox, C., Vangel, D. (2018, April 22). Detect and Remediate Outlook Rules and Custom Forms Injections Attacks in Office 365. Retrieved February 4, 2019."
+        },
+        {
+          "source_name": "SensePost NotRuler",
+          "url": "https://github.com/sensepost/notruler",
+          "description": "SensePost. (2017, September 21). NotRuler - The opposite of Ruler, provides blue teams with the ability to detect Ruler usage against Exchange. Retrieved February 4, 2019."
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "Outlook Forms",
+      "description": "Adversaries may abuse Microsoft Outlook forms to obtain persistence on a compromised system. Outlook forms are used as templates for presentation and functionality in Outlook messages. Custom Outlook forms can be created that will execute code when a specifically crafted email is sent by an adversary utilizing the same custom Outlook form.(Citation: SensePost Outlook Forms)\n\nOnce malicious forms have been added to the user’s mailbox, they will be loaded when Outlook is started. Malicious forms will execute when an adversary sends a specifically crafted email to the user.(Citation: SensePost Outlook Forms)",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "persistence"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--b21c3b2d-02e6-45b1-980b-e69051040839",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2017-05-31T21:30:55.066Z",
+      "modified": "2023-04-07T17:13:54.168Z",
+      "revoked": false,
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "url": "https://attack.mitre.org/techniques/T1068",
+          "external_id": "T1068"
+        },
+        {
+          "source_name": "ESET InvisiMole June 2020",
+          "description": "Hromcova, Z. and Cherpanov, A. (2020, June). INVISIMOLE: THE HIDDEN PART OF THE STORY. Retrieved July 16, 2020.",
+          "url": "https://www.welivesecurity.com/wp-content/uploads/2020/06/ESET_InvisiMole.pdf"
+        },
+        {
+          "source_name": "Microsoft Driver Block Rules",
+          "description": "Microsoft. (2020, October 15). Microsoft recommended driver block rules. Retrieved March 16, 2021.",
+          "url": "https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-application-control/microsoft-recommended-driver-block-rules"
+        },
+        {
+          "source_name": "Unit42 AcidBox June 2020",
+          "description": "Reichel, D. and Idrizovic, E. (2020, June 17). AcidBox: Rare Malware Repurposing Turla Group Exploit Targeted Russian Organizations. Retrieved March 16, 2021.",
+          "url": "https://unit42.paloaltonetworks.com/acidbox-rare-malware/"
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "Exploitation for Privilege Escalation",
+      "description": "Adversaries may exploit software vulnerabilities in an attempt to elevate privileges. Exploitation of a software vulnerability occurs when an adversary takes advantage of a programming error in a program, service, or within the operating system software or kernel itself to execute adversary-controlled code. Security constructs such as permission levels will often hinder access to information and use of certain techniques, so adversaries will likely need to perform privilege escalation to include use of software exploitation to circumvent those restrictions.\n\nWhen initially gaining access to a system, an adversary may be operating within a lower privileged process which will prevent them from accessing certain resources on the system. Vulnerabilities may exist, usually in operating system components and software commonly running at higher permissions, that can be exploited to gain higher levels of access on the system. This could enable someone to move from unprivileged or user level permissions to SYSTEM or root permissions depending on the component that is vulnerable. This could also enable an adversary to move from a virtualized environment, such as within a virtual machine or container, onto the underlying host. This may be a necessary step for an adversary compromising an endpoint system that has been properly configured and limits other privilege escalation methods.\n\nAdversaries may bring a signed vulnerable driver onto a compromised machine so that they can exploit the vulnerability to execute code in kernel mode. This process is sometimes referred to as Bring Your Own Vulnerable Driver (BYOVD).(Citation: ESET InvisiMole June 2020)(Citation: Unit42 AcidBox June 2020) Adversaries may include the vulnerable driver with files delivered during Initial Access or download it to a compromised system via [Ingress Tool Transfer](https://attack.mitre.org/techniques/T1105) or [Lateral Tool Transfer](https://attack.mitre.org/techniques/T1570).",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "privilege-escalation"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--b80d107d-fa0d-4b60-9684-b0433e8bdba0",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2019-03-15T13:59:30.390Z",
+      "modified": "2022-06-16T13:07:10.318Z",
+      "revoked": false,
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1486",
+          "url": "https://attack.mitre.org/techniques/T1486"
+        },
+        {
+          "source_name": "CarbonBlack Conti July 2020",
+          "url": "https://www.carbonblack.com/blog/tau-threat-discovery-conti-ransomware/",
+          "description": "Baskin, B. (2020, July 8). TAU Threat Discovery: Conti Ransomware. Retrieved February 17, 2021."
+        },
+        {
+          "source_name": "FireEye WannaCry 2017",
+          "url": "https://www.fireeye.com/blog/threat-research/2017/05/wannacry-malware-profile.html",
+          "description": "Berry, A., Homan, J., and Eitzman, R. (2017, May 23). WannaCry Malware Profile. Retrieved March 15, 2019."
+        },
+        {
+          "source_name": "Rhino S3 Ransomware Part 1",
+          "url": "https://rhinosecuritylabs.com/aws/s3-ransomware-part-1-attack-vector/",
+          "description": "Gietzen, S. (n.d.). S3 Ransomware Part 1: Attack Vector. Retrieved April 14, 2021."
+        },
+        {
+          "source_name": "NHS Digital Egregor Nov 2020",
+          "url": "https://digital.nhs.uk/cyber-alerts/2020/cc-3681#summary",
+          "description": "NHS Digital. (2020, November 26). Egregor Ransomware The RaaS successor to Maze. Retrieved December 29, 2020."
+        },
+        {
+          "source_name": "US-CERT Ransomware 2016",
+          "url": "https://www.us-cert.gov/ncas/alerts/TA16-091A",
+          "description": "US-CERT. (2016, March 31). Alert (TA16-091A): Ransomware and Recent Variants. Retrieved March 15, 2019."
+        },
+        {
+          "source_name": "US-CERT NotPetya 2017",
+          "url": "https://www.us-cert.gov/ncas/alerts/TA17-181A",
+          "description": "US-CERT. (2017, July 1). Alert (TA17-181A): Petya Ransomware. Retrieved March 15, 2019."
+        },
+        {
+          "source_name": "US-CERT SamSam 2018",
+          "url": "https://www.us-cert.gov/ncas/alerts/AA18-337A",
+          "description": "US-CERT. (2018, December 3). Alert (AA18-337A): SamSam Ransomware. Retrieved March 15, 2019."
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "Data Encrypted for Impact",
+      "description": "Adversaries may encrypt data on target systems or on large numbers of systems in a network to interrupt availability to system and network resources. They can attempt to render stored data inaccessible by encrypting files or data on local and remote drives and withholding access to a decryption key. This may be done in order to extract monetary compensation from a victim in exchange for decryption or a decryption key (ransomware) or to render data permanently inaccessible in cases where the key is not saved or transmitted.(Citation: US-CERT Ransomware 2016)(Citation: FireEye WannaCry 2017)(Citation: US-CERT NotPetya 2017)(Citation: US-CERT SamSam 2018)\n\nIn the case of ransomware, it is typical that common user files like Office documents, PDFs, images, videos, audio, text, and source code files will be encrypted (and often renamed and/or tagged with specific file markers). Adversaries may need to first employ other behaviors, such as [File and Directory Permissions Modification](https://attack.mitre.org/techniques/T1222) or [System Shutdown/Reboot](https://attack.mitre.org/techniques/T1529), in order to unlock and/or gain access to manipulate these files.(Citation: CarbonBlack Conti July 2020) In some cases, adversaries may encrypt critical system files, disk partitions, and the MBR.(Citation: US-CERT NotPetya 2017) \n\nTo maximize impact on the target organization, malware designed for encrypting data may have worm-like features to propagate across a network by leveraging other attack techniques like [Valid Accounts](https://attack.mitre.org/techniques/T1078), [OS Credential Dumping](https://attack.mitre.org/techniques/T1003), and [SMB/Windows Admin Shares](https://attack.mitre.org/techniques/T1021/002).(Citation: FireEye WannaCry 2017)(Citation: US-CERT NotPetya 2017) Encryption malware may also leverage [Internal Defacement](https://attack.mitre.org/techniques/T1491/001), such as changing victim wallpapers, or otherwise intimidate victims by sending ransom notes or other messages to connected printers (known as \"print bombing\").(Citation: NHS Digital Egregor Nov 2020)\n\nIn cloud environments, storage objects within compromised accounts may also be encrypted.(Citation: Rhino S3 Ransomware Part 1)",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "impact"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--bd5b58a4-a52d-4a29-bc0d-3f1d3968eb6b",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2020-02-10T20:03:11.691Z",
+      "modified": "2023-09-14T21:12:48.411Z",
+      "revoked": false,
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "url": "https://attack.mitre.org/techniques/T1036/003",
+          "external_id": "T1036.003"
+        },
+        {
+          "source_name": "Twitter ItsReallyNick Masquerading Update",
+          "description": "Carr, N.. (2018, October 25). Nick Carr Status Update Masquerading. Retrieved April 22, 2019.",
+          "url": "https://twitter.com/ItsReallyNick/status/1055321652777619457"
+        },
+        {
+          "source_name": "Elastic Masquerade Ball",
+          "description": "Ewing, P. (2016, October 31). How to Hunt: The Masquerade Ball. Retrieved October 31, 2016.",
+          "url": "https://www.elastic.co/blog/how-hunt-masquerade-ball"
+        },
+        {
+          "source_name": "F-Secure CozyDuke",
+          "description": "F-Secure Labs. (2015, April 22). CozyDuke: Malware Analysis. Retrieved December 10, 2015.",
+          "url": "https://www.f-secure.com/documents/996508/1030745/CozyDuke"
+        },
+        {
+          "source_name": "LOLBAS Main Site",
+          "description": "LOLBAS. (n.d.). Living Off The Land Binaries and Scripts (and also Libraries). Retrieved February 10, 2020.",
+          "url": "https://lolbas-project.github.io/"
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "Rename System Utilities",
+      "description": "Adversaries may rename legitimate system utilities to try to evade security mechanisms concerning the usage of those utilities. Security monitoring and control mechanisms may be in place for system utilities adversaries are capable of abusing. (Citation: LOLBAS Main Site) It may be possible to bypass those security mechanisms by renaming the utility prior to utilization (ex: rename <code>rundll32.exe</code>). (Citation: Elastic Masquerade Ball) An alternative case occurs when a legitimate utility is copied or moved to a different directory and renamed to avoid detections based on system utilities executing from non-standard paths. (Citation: F-Secure CozyDuke)",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "defense-evasion"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--be2dcee9-a7a7-4e38-afd6-21b31ecc3d63",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2018-04-18T17:59:24.739Z",
+      "modified": "2022-04-18T18:48:06.141Z",
+      "revoked": false,
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1203",
+          "url": "https://attack.mitre.org/techniques/T1203"
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "Exploitation for Client Execution",
+      "description": "Adversaries may exploit software vulnerabilities in client applications to execute code. Vulnerabilities can exist in software due to unsecure coding practices that can lead to unanticipated behavior. Adversaries can take advantage of certain vulnerabilities through targeted exploitation for the purpose of arbitrary code execution. Oftentimes the most valuable exploits to an offensive toolkit are those that can be used to obtain code execution on a remote system because they can be used to gain access to that system. Users will expect to see files related to the applications they commonly used to do work, so they are a useful target for exploit research and development because of their high utility.\n\nSeveral types exist:\n\n### Browser-based Exploitation\n\nWeb browsers are a common target through [Drive-by Compromise](https://attack.mitre.org/techniques/T1189) and [Spearphishing Link](https://attack.mitre.org/techniques/T1566/002). Endpoint systems may be compromised through normal web browsing or from certain users being targeted by links in spearphishing emails to adversary controlled sites used to exploit the web browser. These often do not require an action by the user for the exploit to be executed.\n\n### Office Applications\n\nCommon office and productivity applications such as Microsoft Office are also targeted through [Phishing](https://attack.mitre.org/techniques/T1566). Malicious files will be transmitted directly as attachments or through links to download them. These require the user to open the document or file for the exploit to run.\n\n### Common Third-party Applications\n\nOther applications that are commonly seen or are part of the software deployed in a target network may also be used for exploitation. Applications such as Adobe Reader and Flash, which are common in enterprise environments, have been routinely targeted by adversaries attempting to gain access to systems. Depending on the software and nature of the vulnerability, some may be exploited in the browser or require the user to open a file. For instance, some Flash exploits have been delivered as objects within Microsoft Office documents.",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "execution"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--bf90d72c-c00b-45e3-b3aa-68560560d4c5",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2020-03-11T21:01:00.959Z",
+      "modified": "2023-10-01T13:48:28.738Z",
+      "revoked": false,
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "url": "https://attack.mitre.org/techniques/T1570",
+          "external_id": "T1570"
+        },
+        {
+          "source_name": "Dropbox Malware Sync",
+          "description": "David Talbot. (2013, August 21). Dropbox and Similar Services Can Sync Malware. Retrieved May 31, 2023.",
+          "url": "https://www.technologyreview.com/2013/08/21/83143/dropbox-and-similar-services-can-sync-malware/"
+        },
+        {
+          "source_name": "Unit42 LockerGoga 2019",
+          "description": "Harbison, M. (2019, March 26). Born This Way? Origins of LockerGoga. Retrieved April 16, 2019.",
+          "url": "https://unit42.paloaltonetworks.com/born-this-way-origins-of-lockergoga/"
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "Lateral Tool Transfer",
+      "description": "Adversaries may transfer tools or other files between systems in a compromised environment. Once brought into the victim environment (i.e., [Ingress Tool Transfer](https://attack.mitre.org/techniques/T1105)) files may then be copied from one system to another to stage adversary tools or other files over the course of an operation.\n\nAdversaries may copy files between internal victim systems to support lateral movement using inherent file sharing protocols such as file sharing over [SMB/Windows Admin Shares](https://attack.mitre.org/techniques/T1021/002) to connected network shares or with authenticated connections via [Remote Desktop Protocol](https://attack.mitre.org/techniques/T1021/001).(Citation: Unit42 LockerGoga 2019)\n\nFiles can also be transferred using native or otherwise present tools on the victim system, such as scp, rsync, curl, sftp, and [ftp](https://attack.mitre.org/software/S0095). In some cases, adversaries may be able to leverage [Web Service](https://attack.mitre.org/techniques/T1102)s such as Dropbox or OneDrive to copy files from one machine to another via shared, automatically synced folders.(Citation: Dropbox Malware Sync)",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "lateral-movement"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--bf147104-abf9-4221-95d1-e81585859441",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2019-11-07T20:09:56.536Z",
+      "modified": "2021-08-16T21:30:01.743Z",
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "external_id": "T1137.004",
+          "url": "https://attack.mitre.org/techniques/T1137/004"
+        },
+        {
+          "source_name": "SensePost Outlook Home Page",
+          "url": "https://sensepost.com/blog/2017/outlook-home-page-another-ruler-vector/",
+          "description": "Stalmans, E. (2017, October 11). Outlook Home Page – Another Ruler Vector. Retrieved February 4, 2019."
+        },
+        {
+          "source_name": "Microsoft Detect Outlook Forms",
+          "url": "https://docs.microsoft.com/en-us/office365/securitycompliance/detect-and-remediate-outlook-rules-forms-attack",
+          "description": "Fox, C., Vangel, D. (2018, April 22). Detect and Remediate Outlook Rules and Custom Forms Injections Attacks in Office 365. Retrieved February 4, 2019."
+        },
+        {
+          "source_name": "SensePost NotRuler",
+          "url": "https://github.com/sensepost/notruler",
+          "description": "SensePost. (2017, September 21). NotRuler - The opposite of Ruler, provides blue teams with the ability to detect Ruler usage against Exchange. Retrieved February 4, 2019."
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "Outlook Home Page",
+      "description": "Adversaries may abuse Microsoft Outlook's Home Page feature to obtain persistence on a compromised system. Outlook Home Page is a legacy feature used to customize the presentation of Outlook folders. This feature allows for an internal or external URL to be loaded and presented whenever a folder is opened. A malicious HTML page can be crafted that will execute code when loaded by Outlook Home Page.(Citation: SensePost Outlook Home Page)\n\nOnce malicious home pages have been added to the user’s mailbox, they will be loaded when Outlook is started. Malicious Home Pages will execute when the right Outlook folder is loaded/reloaded.(Citation: SensePost Outlook Home Page)\n",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "persistence"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--d511a6f6-4a33-41d5-bc95-c343875d1377",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2023-03-14T17:36:01.022Z",
+      "modified": "2023-03-24T15:01:21.117Z",
+      "revoked": false,
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "url": "https://attack.mitre.org/techniques/T1027/010",
+          "external_id": "T1027.010"
+        },
+        {
+          "source_name": "Twitter Richard WMIC",
+          "description": "Ackroyd, R. (2023, March 24). Twitter. Retrieved March 24, 2023.",
+          "url": "https://twitter.com/rfackroyd/status/1639136000755765254"
+        },
+        {
+          "source_name": "Invoke-Obfuscation",
+          "description": "Bohannon, D. (2016, September 24). Invoke-Obfuscation. Retrieved March 17, 2023.",
+          "url": "https://github.com/danielbohannon/Invoke-Obfuscation"
+        },
+        {
+          "source_name": "Invoke-DOSfuscation",
+          "description": "Bohannon, D. (2018, March 19). Invoke-DOSfuscation. Retrieved March 17, 2023.",
+          "url": "https://github.com/danielbohannon/Invoke-DOSfuscation"
+        },
+        {
+          "source_name": "FireEye Obfuscation June 2017",
+          "description": "Bohannon, D. & Carr N. (2017, June 30). Obfuscation in the Wild: Targeted Attackers Lead the Way in Evasion Techniques. Retrieved February 12, 2018.",
+          "url": "https://web.archive.org/web/20170923102302/https://www.fireeye.com/blog/threat-research/2017/06/obfuscation-in-the-wild.html"
+        },
+        {
+          "source_name": "Malware Monday VBE",
+          "description": "Bromiley, M. (2016, December 27). Malware Monday: VBScript and VBE Files. Retrieved March 17, 2023.",
+          "url": "https://bromiley.medium.com/malware-monday-vbscript-and-vbe-files-292252c1a16"
+        },
+        {
+          "source_name": "Akamai JS",
+          "description": "Katz, O. (2020, October 26). Catch Me if You Can—JavaScript Obfuscation. Retrieved March 17, 2023.",
+          "url": "https://www.akamai.com/blog/security/catch-me-if-you-can-javascript-obfuscation"
+        },
+        {
+          "source_name": "Bashfuscator Command Obfuscators",
+          "description": "LeFevre, A. (n.d.). Bashfuscator Command Obfuscators. Retrieved March 17, 2023.",
+          "url": "https://bashfuscator.readthedocs.io/en/latest/Mutators/command_obfuscators/index.html"
+        },
+        {
+          "source_name": "Microsoft PowerShellB64",
+          "description": "Microsoft. (2023, February 8). about_PowerShell_exe: EncodedCommand. Retrieved March 17, 2023.",
+          "url": "https://learn.microsoft.com/powershell/module/microsoft.powershell.core/about/about_powershell_exe?view=powershell-5.1#-encodedcommand-base64encodedcommand"
+        },
+        {
+          "source_name": "RC PowerShell",
+          "description": "Red Canary. (n.d.). 2022 Threat Detection Report: PowerShell. Retrieved March 17, 2023.",
+          "url": "https://redcanary.com/threat-detection-report/techniques/powershell/"
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "Command Obfuscation",
+      "description": "Adversaries may obfuscate content during command execution to impede detection. Command-line obfuscation is a method of making strings and patterns within commands and scripts more difficult to signature and analyze. This type of obfuscation can be included within commands executed by delivered payloads (e.g., [Phishing](https://attack.mitre.org/techniques/T1566) and [Drive-by Compromise](https://attack.mitre.org/techniques/T1189)) or interactively via [Command and Scripting Interpreter](https://attack.mitre.org/techniques/T1059).(Citation: Akamai JS)(Citation: Malware Monday VBE)\n\nFor example, adversaries may abuse syntax that utilizes various symbols and escape characters (such as spacing,  `^`, `+`. `$`, and `%`) to make commands difficult to analyze while maintaining the same intended functionality.(Citation: RC PowerShell) Many languages support built-in obfuscation in the form of base64 or URL encoding.(Citation: Microsoft PowerShellB64) Adversaries may also manually implement command obfuscation via string splitting (`“Wor”+“d.Application”`), order and casing of characters (`rev <<<'dwssap/cte/ tac'`), globing (`mkdir -p '/tmp/:&$NiA'`), as well as various tricks involving passing strings through tokens/environment variables/input streams.(Citation: Bashfuscator Command Obfuscators)(Citation: FireEye Obfuscation June 2017)\n\nAdversaries may also use tricks such as directory traversals to obfuscate references to the binary being invoked by a command (`C:\\voi\\pcw\\..\\..\\Windows\\tei\\qs\\k\\..\\..\\..\\system32\\erool\\..\\wbem\\wg\\je\\..\\..\\wmic.exe shadowcopy delete`).(Citation: Twitter Richard WMIC)\n\nTools such as <code>Invoke-Obfuscation</code> and <code>Invoke-DOSfucation</code> have also been used to obfuscate commands.(Citation: Invoke-DOSfuscation)(Citation: Invoke-Obfuscation)",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "defense-evasion"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--dfd7cc1d-e1d8-4394-a198-97c4cab8aa67",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2020-03-09T14:29:51.508Z",
+      "modified": "2023-04-07T17:13:03.738Z",
+      "revoked": false,
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "url": "https://attack.mitre.org/techniques/T1059/005",
+          "external_id": "T1059.005"
+        },
+        {
+          "source_name": "VB .NET Mar 2020",
+          "description": ".NET Team. (2020, March 11). Visual Basic support planned for .NET 5.0. Retrieved June 23, 2020.",
+          "url": "https://devblogs.microsoft.com/vbteam/visual-basic-support-planned-for-net-5-0/"
+        },
+        {
+          "source_name": "Default VBS macros Blocking ",
+          "description": "Kellie Eickmeyer. (2022, February 7). Helping users stay safe: Blocking internet macros by default in Office. Retrieved February 7, 2022.",
+          "url": "https://techcommunity.microsoft.com/t5/microsoft-365-blog/helping-users-stay-safe-blocking-internet-macros-by-default-in/ba-p/3071805"
+        },
+        {
+          "source_name": "Microsoft VBScript",
+          "description": "Microsoft. (2011, April 19). What Is VBScript?. Retrieved March 28, 2020.",
+          "url": "https://docs.microsoft.com/previous-versions//1kw29xwf(v=vs.85)"
+        },
+        {
+          "source_name": "Microsoft VBA",
+          "description": "Microsoft. (2019, June 11). Office VBA Reference. Retrieved June 23, 2020.",
+          "url": "https://docs.microsoft.com/office/vba/api/overview/"
+        },
+        {
+          "source_name": "VB Microsoft",
+          "description": "Microsoft. (n.d.). Visual Basic documentation. Retrieved June 23, 2020.",
+          "url": "https://docs.microsoft.com/dotnet/visual-basic/"
+        },
+        {
+          "source_name": "Wikipedia VBA",
+          "description": "Wikipedia. (n.d.). Visual Basic for Applications. Retrieved August 13, 2020.",
+          "url": "https://en.wikipedia.org/wiki/Visual_Basic_for_Applications"
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "Visual Basic",
+      "description": "Adversaries may abuse Visual Basic (VB) for execution. VB is a programming language created by Microsoft with interoperability with many Windows technologies such as [Component Object Model](https://attack.mitre.org/techniques/T1559/001) and the [Native API](https://attack.mitre.org/techniques/T1106) through the Windows API. Although tagged as legacy with no planned future evolutions, VB is integrated and supported in the .NET Framework and cross-platform .NET Core.(Citation: VB .NET Mar 2020)(Citation: VB Microsoft)\n\nDerivative languages based on VB have also been created, such as Visual Basic for Applications (VBA) and VBScript. VBA is an event-driven programming language built into Microsoft Office, as well as several third-party applications.(Citation: Microsoft VBA)(Citation: Wikipedia VBA) VBA enables documents to contain macros used to automate the execution of tasks and other functionality on the host. VBScript is a default scripting language on Windows hosts and can also be used in place of [JavaScript](https://attack.mitre.org/techniques/T1059/007) on HTML Application (HTA) webpages served to Internet Explorer (though most modern browsers do not come with VBScript support).(Citation: Microsoft VBScript)\n\nAdversaries may use VB payloads to execute malicious commands. Common malicious usage includes automating execution of behaviors with VBScript or embedding VBA content into [Spearphishing Attachment](https://attack.mitre.org/techniques/T1566/001) payloads (which may also involve [Mark-of-the-Web Bypass](https://attack.mitre.org/techniques/T1553/005) to enable execution).(Citation: Default VBS macros Blocking )",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "execution"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--ed7efd4d-ce28-4a19-a8e6-c58011eb2c7a",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2019-11-07T19:44:04.475Z",
+      "modified": "2024-04-16T12:41:55.175Z",
+      "revoked": false,
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "url": "https://attack.mitre.org/techniques/T1137/002",
+          "external_id": "T1137.002"
+        },
+        {
+          "source_name": "Palo Alto Office Test Sofacy",
+          "description": "Falcone, R. (2016, July 20). Technical Walkthrough: Office Test Persistence Method Used In Recent Sofacy Attacks. Retrieved July 3, 2017.",
+          "url": "https://researchcenter.paloaltonetworks.com/2016/07/unit42-technical-walkthrough-office-test-persistence-method-used-in-recent-sofacy-attacks/"
+        },
+        {
+          "source_name": "Hexacorn Office Test",
+          "description": "Hexacorn. (2014, April 16). Beyond good ol’ Run key, Part 10. Retrieved July 3, 2017.",
+          "url": "http://www.hexacorn.com/blog/2014/04/16/beyond-good-ol-run-key-part-10/"
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "Office Test",
+      "description": "Adversaries may abuse the Microsoft Office \"Office Test\" Registry key to obtain persistence on a compromised system. An Office Test Registry location exists that allows a user to specify an arbitrary DLL that will be executed every time an Office application is started. This Registry key is thought to be used by Microsoft to load DLLs for testing and debugging purposes while developing Office applications. This Registry key is not created by default during an Office installation.(Citation: Hexacorn Office Test)(Citation: Palo Alto Office Test Sofacy)\n\nThere exist user and global Registry keys for the Office Test feature, such as:\n\n* <code>HKEY_CURRENT_USER\\Software\\Microsoft\\Office test\\Special\\Perf</code>\n* <code>HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Office test\\Special\\Perf</code>\n\nAdversaries may add this Registry key and specify a malicious DLL that will be executed whenever an Office application, such as Word or Excel, is started.",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "persistence"
+        }
+      ]
+    },
+    {
+      "id": "attack-pattern--f1951e8a-500e-4a26-8803-76d95c4554b4",
+      "type": "attack-pattern",
+      "created_by_ref": "identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5",
+      "created": "2020-03-10T18:33:36.159Z",
+      "modified": "2023-08-14T15:53:00.999Z",
+      "revoked": false,
+      "external_references": [
+        {
+          "source_name": "mitre-attack",
+          "url": "https://attack.mitre.org/techniques/T1569/002",
+          "external_id": "T1569.002"
+        },
+        {
+          "source_name": "Microsoft Service Control Manager",
+          "description": "Microsoft. (2018, May 31). Service Control Manager. Retrieved March 28, 2020.",
+          "url": "https://docs.microsoft.com/windows/win32/services/service-control-manager"
+        },
+        {
+          "source_name": "Russinovich Sysinternals",
+          "description": "Russinovich, M. (2014, May 2). Windows Sysinternals PsExec v2.11. Retrieved May 13, 2015.",
+          "url": "https://technet.microsoft.com/en-us/sysinternals/bb897553.aspx"
+        }
+      ],
+      "object_marking_refs": [
+        "marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168"
+      ],
+      "name": "Service Execution",
+      "description": "Adversaries may abuse the Windows service control manager to execute malicious commands or payloads. The Windows service control manager (<code>services.exe</code>) is an interface to manage and manipulate services.(Citation: Microsoft Service Control Manager) The service control manager is accessible to users via GUI components as well as system utilities such as <code>sc.exe</code> and [Net](https://attack.mitre.org/software/S0039).\n\n[PsExec](https://attack.mitre.org/software/S0029) can also be used to execute commands or payloads via a temporary Windows service created through the service control manager API.(Citation: Russinovich Sysinternals) Tools such as [PsExec](https://attack.mitre.org/software/S0029) and <code>sc.exe</code> can accept remote servers as arguments and may be used to conduct remote execution.\n\nAdversaries may leverage these mechanisms to execute malicious content. This can be done by either executing a new or modified service. This technique is the execution used in conjunction with [Windows Service](https://attack.mitre.org/techniques/T1543/003) during service persistence or privilege escalation.",
+      "kill_chain_phases": [
+        {
+          "kill_chain_name": "mitre-attack",
+          "phase_name": "execution"
+        }
+      ]
+    },
+    {
+      "id": "course-of-action--34554857-1a10-423d-8875-86de545254ec",
+      "type": "course-of-action",
+      "spec_version": 2.1,
+      "created_by_ref": "identity--5cce25aa-a8da-4444-bc53-81803687bc74",
+      "labels": [],
+      "created": "2024-05-17T00:25:10+01:00",
+      "modified": "2024-05-17T00:25:10+01:00",
+      "revoked": false,
+      "confidence": 0,
+      "lang": "en",
+      "external_references": [
+        {
+          "source_name": ""
+        }
+      ],
+      "object_marking_refs": [],
+      "granular_markings": [],
+      "name": "Block abuse of exploited vulnerable signed drivers",
+      "description": "\"This rule prevents an application from writing a vulnerable signed driver to disk. In-the-wild, vulnerable signed drivers can be exploited by local applications - that have sufficient privileges - to gain access to the kernel. Vulnerable signed drivers enable attackers to disable or circumvent security solutions, eventually leading to system compromise.\nThe Block abuse of exploited vulnerable signed drivers rule doesn't block a driver already existing on the system from being loaded.\""
+    },
+    {
+      "id": "grouping--7a0aa116-e687-4d4f-9948-fd802a55fd45",
+      "type": "grouping",
+      "spec_version": 2.1,
+      "created_by_ref": "identity--1dd7bca6-cef5-4395-826f-64994241b3cf",
+      "labels": [],
+      "created": "2024-05-17T00:25:10+01:00",
+      "modified": "2024-05-17T00:25:10+01:00",
+      "revoked": false,
+      "confidence": 0,
+      "lang": "en",
+      "external_references": [
+        {
+          "source_name": ""
+        }
+      ],
+      "object_marking_refs": [],
+      "granular_markings": [],
+      "name": "Microsoft ASR to MITRE-ATTACK Mapping Project",
+      "description": "Description:\nThis project bridges the gap between Microsoft Attack Surface Reduction (ASR) rules and MITRE ATT&CK techniques by mapping ASR rules to corresponding ATT&CK techniques. The goal is to provide a better understanding of how ASR rules align with the ATT&CK framework, enabling improved threat detection, analysis, and mitigation strategies.\n\nMapping Methodology:\nThe approach for mapping ASR (Attack Surface Reduction) rules to MITRE ATT&CK techniques draws inspiration from the following sources:\n\nMITRE ATT&CK Enterprise Mitigations: ID: M1040 ID: M1050\nAttack Control Framework Mappings: Mapping Methodology",
+      "context": "",
+      "object_refs": [
+        "course-of-action--34554857-1a10-423d-8875-86de545254ec",
+        "course-of-action--792d7761-49de-4429-9c5d-c19f89da0687",
+        "course-of-action--1ecaa582-b018-4fc8-a61d-9a01400e7e52",
+        "course-of-action--1c5159ac-73f7-44ed-88e2-e77ee6ed3116",
+        "course-of-action--7eea37a0-bdb7-44b0-85b8-0202db9c6e93",
+        "course-of-action--09e89985-a0c6-4cdc-9201-ecb36585a4ab",
+        "course-of-action--3b9dc3b9-9cf6-45b4-bd34-02c9b296314f",
+        "course-of-action--669e4bb4-8f3e-406b-ac2d-ee8c1f1f3c5b",
+        "course-of-action--90f9b5cf-283a-4dc9-90ea-b8e35d9d0493",
+        "course-of-action--a5ec6aa1-5a92-40c6-a6bc-f325d56889e7",
+        "course-of-action--17a89738-4ea6-44d1-81c9-88fdea193d42",
+        "course-of-action--76aa0545-cbc2-4d98-9720-ff64b0647f83",
+        "course-of-action--d42a9b93-7d2b-4ef5-b464-45c9977690f8",
+        "course-of-action--33b81a6c-c905-46e7-b3c5-6cbbe416db84",
+        "course-of-action--5ac11aa8-2dc8-441e-bd57-3925d89996ef",
+        "course-of-action--3e404428-64c9-4912-9431-a2a1d75aa453",
+        "course-of-action--927dce86-4b98-4575-a27f-d35456adb4cc",
+        "course-of-action--47566e3d-bc61-4bee-8117-e1c096472245",
+        "course-of-action--c8cb35c5-2c44-47bb-afd7-c573c34f7f15"
+      ]
+    },
+    {
+      "id": "course-of-action--792d7761-49de-4429-9c5d-c19f89da0687",
+      "type": "course-of-action",
+      "spec_version": 2.1,
+      "created_by_ref": "identity--5cce25aa-a8da-4444-bc53-81803687bc74",
+      "labels": [],
+      "created": "2024-05-17T00:25:10+01:00",
+      "modified": "2024-05-17T00:25:10+01:00",
+      "revoked": false,
+      "confidence": 0,
+      "lang": "en",
+      "external_references": [
+        {
+          "source_name": ""
+        }
+      ],
+      "object_marking_refs": [],
+      "granular_markings": [],
+      "name": "Block Adobe Reader from creating child processes",
+      "description": "\"This rule prevents attacks by blocking Adobe Reader from creating processes.\nMalware can download and launch payloads and break out of Adobe Reader through social engineering or exploits. By blocking child processes from being generated by Adobe Reader, malware attempting to use Adobe Reader as an attack vector are prevented from spreading.\""
+    },
+    {
+      "id": "course-of-action--1ecaa582-b018-4fc8-a61d-9a01400e7e52",
+      "type": "course-of-action",
+      "spec_version": 2.1,
+      "created_by_ref": "identity--5cce25aa-a8da-4444-bc53-81803687bc74",
+      "labels": [],
+      "created": "2024-05-17T00:25:10+01:00",
+      "modified": "2024-05-17T00:25:10+01:00",
+      "revoked": false,
+      "confidence": 0,
+      "lang": "en",
+      "external_references": [
+        {
+          "source_name": ""
+        }
+      ],
+      "object_marking_refs": [],
+      "granular_markings": [],
+      "name": "Block Office application from creating child processes",
+      "description": "\"This rule blocks Office apps from creating child processes. Office apps include Word, Excel, PowerPoint, OneNote, and Access.\nCreating malicious child processes is a common malware strategy. Malware that abuses Office as a vector often runs VBA macros and exploit code to download and attempt to run more payloads. However, some legitimate line-of-business applications might also generate child processes for benign purposes; such as spawning a command prompt or using PowerShell to configure registry settings.\"\nThe Block abuse of exploited vulnerable signed drivers rule doesn't block a driver already existing on the system from being loaded.\""
+    },
+    {
+      "id": "course-of-action--1c5159ac-73f7-44ed-88e2-e77ee6ed3116",
+      "type": "course-of-action",
+      "spec_version": 2.1,
+      "created_by_ref": "identity--5cce25aa-a8da-4444-bc53-81803687bc74",
+      "labels": [],
+      "created": "2024-05-17T00:25:10+01:00",
+      "modified": "2024-05-17T00:25:10+01:00",
+      "revoked": false,
+      "confidence": 0,
+      "lang": "en",
+      "external_references": [
+        {
+          "source_name": ""
+        }
+      ],
+      "object_marking_refs": [],
+      "granular_markings": [],
+      "name": "Block credential stealing from the Windows local security authority subsystem (lsass.exe)",
+      "description": "\"This rule helps prevent credential stealing by locking down Local Security Authority Subsystem Service (LSASS).\nLSASS authenticates users who sign in on a Windows computer. Microsoft Defender Credential Guard in Windows normally prevents attempts to extract credentials from LSASS. Some organizations can't enable Credential Guard on all of their computers because of compatibility issues with custom smartcard drivers or other programs that load into the Local Security Authority (LSA). In these cases, attackers can use tools like Mimikatz to scrape cleartext passwords and NTLM hashes from LSASS.\nBy default the state of this rule is set to block. In most cases, many processes make calls to LSASS for access rights that are not needed. For example, such as when the initial block from the ASR rule results in a subsequent call for a lesser privilege which subsequently succeeds. For information about the types of rights that are typically requested in process calls to LSASS, see: Process Security and Access Rights.\nEnabling this rule doesn't provide additional protection if you have LSA protection enabled since the ASR rule and LSA protection work similarly. However, when LSA protection cannot be enabled, this rule can be configured to provide equivalent protection against malware that target lsass.exe.\""
+    },
+    {
+      "id": "course-of-action--09e89985-a0c6-4cdc-9201-ecb36585a4ab",
+      "type": "course-of-action",
+      "spec_version": 2.1,
+      "created_by_ref": "identity--5cce25aa-a8da-4444-bc53-81803687bc74",
+      "labels": [],
+      "created": "2024-05-17T00:25:10+01:00",
+      "modified": "2024-05-17T00:25:10+01:00",
+      "revoked": false,
+      "confidence": 0,
+      "lang": "en",
+      "external_references": [
+        {
+          "source_name": ""
+        }
+      ],
+      "object_marking_refs": [],
+      "granular_markings": [],
+      "name": "Block executable content from email client and webmail",
+      "description": "\"This rule blocks email opened within the Microsoft Outlook application, or Outlook.com and other popular webmail providers from propagating the following file types:\nExecutable files (such as .exe, .dll, or .scr)\nScript files (such as a PowerShell .ps1, Visual Basic .vbs, or JavaScript .js file)\""
+    },
+    {
+      "id": "course-of-action--7eea37a0-bdb7-44b0-85b8-0202db9c6e93",
+      "type": "course-of-action",
+      "spec_version": 2.1,
+      "created_by_ref": "identity--5cce25aa-a8da-4444-bc53-81803687bc74",
+      "labels": [],
+      "created": "2024-05-17T00:25:10+01:00",
+      "modified": "2024-05-17T00:25:10+01:00",
+      "revoked": false,
+      "confidence": 0,
+      "lang": "en",
+      "external_references": [
+        {
+          "source_name": "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-executable-files-from-running-unless-they-meet-a-prevalence-age-or-trusted-list-criterion"
+        }
+      ],
+      "object_marking_refs": [],
+      "granular_markings": [],
+      "name": "Block executable files from running unless they meet a prevalence, age, or trusted list criteria",
+      "description": "\"This rule blocks executable files, such as .exe, .dll, or .scr, from launching. Thus, launching untrusted or unknown executable files can be risky, as it might not be initially clear if the files are malicious.\nImportant:\nYou must enable cloud-delivered protection to use this rule.\nThe rule Block executable files from running unless they meet a prevalence, age, or trusted list criterion with GUID 01443614-cd74-433a-b99e-2ecdc07bfc25 is owned by Microsoft and is not specified by admins. This rule uses cloud-delivered protection to update its trusted list regularly.\nYou can specify individual files or folders (using folder paths or fully qualified resource names) but you can't specify which rules or exclusions apply to.\""
+    },
+    {
+      "id": "course-of-action--3b9dc3b9-9cf6-45b4-bd34-02c9b296314f",
+      "type": "course-of-action",
+      "spec_version": 2.1,
+      "created_by_ref": "identity--5cce25aa-a8da-4444-bc53-81803687bc74",
+      "labels": [],
+      "created": "2024-05-17T00:25:10+01:00",
+      "modified": "2024-05-17T00:25:10+01:00",
+      "revoked": false,
+      "confidence": 0,
+      "lang": "en",
+      "external_references": [
+        {
+          "source_name": "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-execution-of-potentially-obfuscated-scripts"
+        }
+      ],
+      "object_marking_refs": [],
+      "granular_markings": [],
+      "name": "Block execution of potentially obfuscated scripts",
+      "description": "\"This rule detects suspicious properties within an obfuscated script.\nImportant:\nPowerShell scripts are now supported for the \"\"Block execution of potentially obfuscated scripts\"\" rule.\nScript obfuscation is a common technique that both malware authors and legitimate applications use to hide intellectual property or decrease script loading times. Malware authors also use obfuscation to make malicious code harder to read, which hampers close scrutiny by humans and security software.\""
+    },
+    {
+      "id": "course-of-action--669e4bb4-8f3e-406b-ac2d-ee8c1f1f3c5b",
+      "type": "course-of-action",
+      "spec_version": 2.1,
+      "created_by_ref": "identity--5cce25aa-a8da-4444-bc53-81803687bc74",
+      "labels": [],
+      "created": "2024-05-17T00:25:10+01:00",
+      "modified": "2024-05-17T00:25:10+01:00",
+      "revoked": false,
+      "confidence": 0,
+      "lang": "en",
+      "external_references": [
+        {
+          "source_name": "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-executable-files-from-running-unless-they-meet-a-prevalence-age-or-trusted-list-criterion"
+        }
+      ],
+      "object_marking_refs": [],
+      "granular_markings": [],
+      "name": "Block JavaScript or VBScript from launching downloaded executable content",
+      "description": "\"This rule prevents scripts from launching potentially malicious downloaded content. Malware written in JavaScript or VBScript often acts as a downloader to fetch and launch other malware from the Internet.\nAlthough not common, line-of-business applications sometimes use scripts to download and launch installers.\""
+    },
+    {
+      "id": "course-of-action--90f9b5cf-283a-4dc9-90ea-b8e35d9d0493",
+      "type": "course-of-action",
+      "spec_version": 2.1,
+      "created_by_ref": "identity--5cce25aa-a8da-4444-bc53-81803687bc74",
+      "labels": [],
+      "created": "2024-05-17T00:25:10+01:00",
+      "modified": "2024-05-17T00:25:10+01:00",
+      "revoked": false,
+      "confidence": 0,
+      "lang": "en",
+      "external_references": [
+        {
+          "source_name": "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-executable-files-from-running-unless-they-meet-a-prevalence-age-or-trusted-list-criterion"
+        }
+      ],
+      "object_marking_refs": [],
+      "granular_markings": [],
+      "name": "Block Office applications from creating executable content",
+      "description": "\"This rule prevents Office apps, including Word, Excel, and PowerPoint, from creating potentially malicious executable content, by blocking malicious code from being written to disk.\nMalware that abuses Office as a vector might attempt to break out of Office and save malicious components to disk. These malicious components would survive a computer reboot and persist on the system. Therefore, this rule defends against a common persistence technique. This rule also blocks execution of untrusted files that may have been saved by Office macros that are allowed to run in Office files.\""
+    },
+    {
+      "id": "course-of-action--a5ec6aa1-5a92-40c6-a6bc-f325d56889e7",
+      "type": "course-of-action",
+      "spec_version": 2.1,
+      "created_by_ref": "identity--5cce25aa-a8da-4444-bc53-81803687bc74",
+      "labels": [],
+      "created": "2024-05-17T00:25:10+01:00",
+      "modified": "2024-05-17T00:25:10+01:00",
+      "revoked": false,
+      "confidence": 0,
+      "lang": "en",
+      "external_references": [
+        {
+          "source_name": "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-executable-files-from-running-unless-they-meet-a-prevalence-age-or-trusted-list-criterion"
+        }
+      ],
+      "object_marking_refs": [],
+      "granular_markings": [],
+      "name": "Block Office applications from injecting code into other processes",
+      "description": "\"This rule blocks code injection attempts from Office apps into other processes.\nNote:\nThe Block applications from injecting code into other processes ASR rule does not support WARN mode.\nImportant:\nThis rule requires restarting Microsoft 365 Apps (Office applications) for the configuration changes to take effect.\nAttackers might attempt to use Office apps to migrate malicious code into other processes through code injection, so the code can masquerade as a clean process.\nThere are no known legitimate business purposes for using code injection.\nThis rule applies to Word, Excel, OneNote, and PowerPoint.\""
+    },
+    {
+      "id": "course-of-action--17a89738-4ea6-44d1-81c9-88fdea193d42",
+      "type": "course-of-action",
+      "spec_version": 2.1,
+      "created_by_ref": "identity--5cce25aa-a8da-4444-bc53-81803687bc74",
+      "labels": [],
+      "created": "2024-05-17T00:25:10+01:00",
+      "modified": "2024-05-17T00:25:10+01:00",
+      "revoked": false,
+      "confidence": 0,
+      "lang": "en",
+      "external_references": [
+        {
+          "source_name": "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-executable-files-from-running-unless-they-meet-a-prevalence-age-or-trusted-list-criterion"
+        }
+      ],
+      "object_marking_refs": [],
+      "granular_markings": [],
+      "name": "Block Office communication application from creating child processes",
+      "description": "\"This rule prevents Outlook from creating child processes, while still allowing legitimate Outlook functions.\nThis rule protects against social engineering attacks and prevents exploiting code from abusing vulnerabilities in Outlook. It also protects against Outlook rules and forms exploits that attackers can use when a user's credentials are compromised.\nNote:\nThis rule blocks DLP policy tips and ToolTips in Outlook. This rule applies to Outlook and Outlook.com only.\""
+    },
+    {
+      "id": "course-of-action--76aa0545-cbc2-4d98-9720-ff64b0647f83",
+      "type": "course-of-action",
+      "spec_version": 2.1,
+      "created_by_ref": "identity--5cce25aa-a8da-4444-bc53-81803687bc74",
+      "labels": [],
+      "created": "2024-05-17T00:25:10+01:00",
+      "modified": "2024-05-17T00:25:10+01:00",
+      "revoked": false,
+      "confidence": 0,
+      "lang": "en",
+      "external_references": [
+        {
+          "source_name": "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-executable-files-from-running-unless-they-meet-a-prevalence-age-or-trusted-list-criterion"
+        }
+      ],
+      "object_marking_refs": [],
+      "granular_markings": [],
+      "name": "Block persistence through WMI event subscription",
+      "description": "\"This rule prevents malware from abusing WMI to attain persistence on a device.\nImportant:\nFile and folder exclusions don't apply to this attack surface reduction rule.\nFileless threats employ various tactics to stay hidden, to avoid being seen in the file system, and to gain periodic execution control. Some threats can abuse the WMI repository and event model to stay hidden.\nNote:\nIf CcmExec.exe (SCCM Agent) is detected on the device, the ASR rule is classified as \"\"not applicable\"\" in Defender for Endpoint settings in the Microsoft Defender portal.\""
+    },
+    {
+      "id": "course-of-action--d42a9b93-7d2b-4ef5-b464-45c9977690f8",
+      "type": "course-of-action",
+      "spec_version": 2.1,
+      "created_by_ref": "identity--5cce25aa-a8da-4444-bc53-81803687bc74",
+      "labels": [],
+      "created": "2024-05-17T00:25:10+01:00",
+      "modified": "2024-05-17T00:25:10+01:00",
+      "revoked": false,
+      "confidence": 0,
+      "lang": "en",
+      "external_references": [
+        {
+          "source_name": "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-executable-files-from-running-unless-they-meet-a-prevalence-age-or-trusted-list-criterion"
+        }
+      ],
+      "object_marking_refs": [],
+      "granular_markings": [],
+      "name": "Block process creations originating from PSExec and WMI commands",
+      "description": "\"This rule blocks processes created through PsExec and WMI from running. Both PsExec and WMI can remotely execute code. There's a risk of malware abusing functionality of PsExec and WMI for command and control purposes, or to spread an infection throughout an organization's network.\nWarning:\nOnly use this rule if you're managing your devices with Intune or another MDM solution. This rule is incompatible with management through Microsoft Endpoint Configuration Manager because this rule blocks WMI commands the Configuration Manager client uses to function correctly.\""
+    },
+    {
+      "id": "course-of-action--33b81a6c-c905-46e7-b3c5-6cbbe416db84",
+      "type": "course-of-action",
+      "spec_version": 2.1,
+      "created_by_ref": "identity--5cce25aa-a8da-4444-bc53-81803687bc74",
+      "labels": [],
+      "created": "2024-05-17T00:25:10+01:00",
+      "modified": "2024-05-17T00:25:10+01:00",
+      "revoked": false,
+      "confidence": 0,
+      "lang": "en",
+      "external_references": [
+        {
+          "source_name": "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-executable-files-from-running-unless-they-meet-a-prevalence-age-or-trusted-list-criterion"
+        }
+      ],
+      "object_marking_refs": [],
+      "granular_markings": [],
+      "name": "Block rebooting machine in Safe Mode (preview)",
+      "description": "\"This rule prevents the execution of commands to restart machines in Safe Mode.\nSafe Mode is a diagnostic mode that only loads the essential files and drivers needed for Windows to run. However, in Safe Mode, many security products are either disabled or operate in a limited capacity, which allows attackers to further launch tampering commands, or simply execute and encrypt all files on the machine. This rule blocks such attacks by preventing processes from restarting machines in Safe Mode.\""
+    },
+    {
+      "id": "course-of-action--5ac11aa8-2dc8-441e-bd57-3925d89996ef",
+      "type": "course-of-action",
+      "spec_version": 2.1,
+      "created_by_ref": "identity--5cce25aa-a8da-4444-bc53-81803687bc74",
+      "labels": [],
+      "created": "2024-05-17T00:25:10+01:00",
+      "modified": "2024-05-17T00:25:10+01:00",
+      "revoked": false,
+      "confidence": 0,
+      "lang": "en",
+      "external_references": [
+        {
+          "source_name": "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-executable-files-from-running-unless-they-meet-a-prevalence-age-or-trusted-list-criterion"
+        }
+      ],
+      "object_marking_refs": [],
+      "granular_markings": [],
+      "name": "Block untrusted and unsigned processes that run from USB",
+      "description": "\"With this rule, admins can prevent unsigned or untrusted executable files from running from USB removable drives, including SD cards. Blocked file types include executable files (such as .exe, .dll, or .scr)\nImportant:\nFiles copied from the USB to the disk drive will be blocked by this rule if and when it's about to be executed on the disk drive.\""
+    },
+    {
+      "id": "course-of-action--3e404428-64c9-4912-9431-a2a1d75aa453",
+      "type": "course-of-action",
+      "spec_version": 2.1,
+      "created_by_ref": "identity--5cce25aa-a8da-4444-bc53-81803687bc74",
+      "labels": [],
+      "created": "2024-05-17T00:25:10+01:00",
+      "modified": "2024-05-17T00:25:10+01:00",
+      "revoked": false,
+      "confidence": 0,
+      "lang": "en",
+      "external_references": [
+        {
+          "source_name": "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-executable-files-from-running-unless-they-meet-a-prevalence-age-or-trusted-list-criterion"
+        }
+      ],
+      "object_marking_refs": [],
+      "granular_markings": [],
+      "name": "Block use of copied or impersonated system tools (preview)",
+      "description": "\"This rule blocks the use of executable files that are identified as copies of Windows system tools. These files are either duplicates or impostors of the original system tools.\nSome malicious programs may try to copy or impersonate Windows system tools to avoid detection or gain privileges. Allowing such executable files can lead to potential attacks. This rule prevents propagation and execution of such duplicates and impostors of the system tools on Windows machines.\nNote:\nThis capability is currently in preview. Additional upgrades to improve efficacy are under development.\""
+    },
+    {
+      "id": "course-of-action--927dce86-4b98-4575-a27f-d35456adb4cc",
+      "type": "course-of-action",
+      "spec_version": 2.1,
+      "created_by_ref": "identity--5cce25aa-a8da-4444-bc53-81803687bc74",
+      "labels": [],
+      "created": "2024-05-17T00:25:10+01:00",
+      "modified": "2024-05-17T00:25:10+01:00",
+      "revoked": false,
+      "confidence": 0,
+      "lang": "en",
+      "external_references": [
+        {
+          "source_name": "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-executable-files-from-running-unless-they-meet-a-prevalence-age-or-trusted-list-criterion"
+        }
+      ],
+      "object_marking_refs": [],
+      "granular_markings": [],
+      "name": "Block Webshell creation for Servers",
+      "description": "\"This rule blocks web shell script creation on Microsoft Server, Exchange Role.\nA web shell script is a specifically crafted script that allows an attacker to control the compromised server. A web shell may include functionalities such as receiving and executing malicious commands, downloading and executing malicious files, stealing and exfiltrating credentials and sensitive information, identifying potential targets etc.\""
+    },
+    {
+      "id": "course-of-action--47566e3d-bc61-4bee-8117-e1c096472245",
+      "type": "course-of-action",
+      "spec_version": 2.1,
+      "created_by_ref": "identity--5cce25aa-a8da-4444-bc53-81803687bc74",
+      "labels": [],
+      "created": "2024-05-17T00:25:10+01:00",
+      "modified": "2024-05-17T00:25:10+01:00",
+      "revoked": false,
+      "confidence": 0,
+      "lang": "en",
+      "external_references": [
+        {
+          "source_name": "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-executable-files-from-running-unless-they-meet-a-prevalence-age-or-trusted-list-criterion"
+        }
+      ],
+      "object_marking_refs": [],
+      "granular_markings": [],
+      "name": "Block Win32 API calls from Office macros",
+      "description": "\"This rule prevents VBA macros from calling Win32 APIs.\nOffice VBA enables Win32 API calls. Malware can abuse this capability, such as calling Win32 APIs to launch malicious shellcode without writing anything directly to disk. Most organizations don't rely on the ability to call Win32 APIs in their day-to-day functioning, even if they use macros in other ways.\""
+    },
+    {
+      "id": "course-of-action--c8cb35c5-2c44-47bb-afd7-c573c34f7f15",
+      "type": "course-of-action",
+      "spec_version": 2.1,
+      "created_by_ref": "identity--5cce25aa-a8da-4444-bc53-81803687bc74",
+      "labels": [],
+      "created": "2024-05-17T00:25:10+01:00",
+      "modified": "2024-05-17T00:25:10+01:00",
+      "revoked": false,
+      "confidence": 0,
+      "lang": "en",
+      "external_references": [
+        {
+          "source_name": "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-executable-files-from-running-unless-they-meet-a-prevalence-age-or-trusted-list-criterion"
+        }
+      ],
+      "object_marking_refs": [],
+      "granular_markings": [],
+      "name": "Use advanced protection against ransomware",
+      "description": "\"This rule provides an extra layer of protection against ransomware. It uses both client and cloud heuristics to determine whether a file resembles ransomware. This rule doesn't block files that have one or more of the following characteristics:\nThe file has already been found to be unharmful in the Microsoft cloud.\nThe file is a valid signed file.\nThe file is prevalent enough to not be considered as ransomware.\nThe rule tends to err on the side of caution to prevent ransomware.\nNote:\nYou must enable cloud-delivered protection to use this rule.\""
+    },
+    {
+      "source_ref": "course-of-action--34554857-1a10-423d-8875-86de545254ec",
+      "target_ref": "attack-pattern--106c0cf6-bf73-4601-9aa8-0945c2715ec5",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-16T23:30:05.156Z",
+      "modified": "2024-05-16T23:30:05.156Z",
+      "id": "relationship--a8e1e31f-7a97-42f5-b874-8833cdde765f",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--34554857-1a10-423d-8875-86de545254ec",
+      "target_ref": "attack-pattern--2959d63f-73fd-46a1-abd2-109d7dcede32",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-16T23:38:14.225Z",
+      "modified": "2024-05-16T23:38:14.225Z",
+      "id": "relationship--29017e55-3e64-4242-91a6-388086db6977",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--34554857-1a10-423d-8875-86de545254ec",
+      "target_ref": "attack-pattern--b21c3b2d-02e6-45b1-980b-e69051040839",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-16T23:38:46.648Z",
+      "modified": "2024-05-16T23:38:46.648Z",
+      "id": "relationship--fe57d821-5553-4a02-9e29-1881062a9609",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--792d7761-49de-4429-9c5d-c19f89da0687",
+      "target_ref": "attack-pattern--232b7f21-adf9-4b42-b936-b9d6f7df856e",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-16T23:50:35.923Z",
+      "modified": "2024-05-16T23:50:35.923Z",
+      "id": "relationship--159326e6-228b-4b6a-afc1-e033f05ca827",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--1ecaa582-b018-4fc8-a61d-9a01400e7e52",
+      "target_ref": "attack-pattern--34f1d81d-fe88-4f97-bd3b-a3164536255d",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-16T23:52:17.453Z",
+      "modified": "2024-05-16T23:52:17.453Z",
+      "id": "relationship--fd6a0133-9cd8-4650-9fd9-34c206176625",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--1ecaa582-b018-4fc8-a61d-9a01400e7e52",
+      "target_ref": "attack-pattern--ed7efd4d-ce28-4a19-a8e6-c58011eb2c7a",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-16T23:53:47.827Z",
+      "modified": "2024-05-16T23:53:47.827Z",
+      "id": "relationship--a267c423-a752-43f2-88af-b4010d17d9df",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--1ecaa582-b018-4fc8-a61d-9a01400e7e52",
+      "target_ref": "attack-pattern--2c4d4e92-0ccf-4a97-b54c-86d662988a53",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-16T23:54:02.116Z",
+      "modified": "2024-05-16T23:54:02.116Z",
+      "id": "relationship--81f38043-ae41-4b0e-a55f-5aa8f1877147",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--1ecaa582-b018-4fc8-a61d-9a01400e7e52",
+      "target_ref": "attack-pattern--bf147104-abf9-4221-95d1-e81585859441",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-16T23:55:48.514Z",
+      "modified": "2024-05-16T23:55:48.514Z",
+      "id": "relationship--d0733716-0105-47f7-8cfc-e4172e3cb681",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--1ecaa582-b018-4fc8-a61d-9a01400e7e52",
+      "target_ref": "attack-pattern--a9e2cea0-c805-4bf8-9e31-f5f0513a3634",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-16T23:56:02.395Z",
+      "modified": "2024-05-16T23:56:02.396Z",
+      "id": "relationship--c1fbae3d-9739-48c7-903a-7f7aff1e32b4",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--1ecaa582-b018-4fc8-a61d-9a01400e7e52",
+      "target_ref": "attack-pattern--3d1b9d7e-3921-4d25-845a-7d9f15c0da44",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-16T23:56:33.812Z",
+      "modified": "2024-05-16T23:56:33.812Z",
+      "id": "relationship--af6113b7-c44f-4337-9043-1055c686af72",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--1ecaa582-b018-4fc8-a61d-9a01400e7e52",
+      "target_ref": "attack-pattern--79a47ad0-fc3b-4821-9f01-a026b1ddba21",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-16T23:56:52.246Z",
+      "modified": "2024-05-16T23:56:52.246Z",
+      "id": "relationship--d63265b6-9202-4766-aea1-11a7c43c58e0",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--1ecaa582-b018-4fc8-a61d-9a01400e7e52",
+      "target_ref": "attack-pattern--232b7f21-adf9-4b42-b936-b9d6f7df856e",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-16T23:58:33.124Z",
+      "modified": "2024-05-16T23:58:33.124Z",
+      "id": "relationship--9ccd3313-b1b4-4999-931d-fae1d40fe1a5",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--1c5159ac-73f7-44ed-88e2-e77ee6ed3116",
+      "target_ref": "attack-pattern--65f2d882-3f41-4d48-8a06-29af77ec9f90",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-17T00:02:42.298Z",
+      "modified": "2024-05-17T00:02:42.298Z",
+      "id": "relationship--4c666565-144b-41eb-b21e-7986fc454c0d",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--09e89985-a0c6-4cdc-9201-ecb36585a4ab",
+      "target_ref": "attack-pattern--232b7f21-adf9-4b42-b936-b9d6f7df856e",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-17T00:05:37.858Z",
+      "modified": "2024-05-17T00:05:37.858Z",
+      "id": "relationship--d559b85f-660c-44e9-84d0-81f818982000",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--7eea37a0-bdb7-44b0-85b8-0202db9c6e93",
+      "target_ref": "attack-pattern--8c32eb4d-805f-4fc5-bf60-c4d476c131b5",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-17T00:09:23.305Z",
+      "modified": "2024-05-17T00:09:23.305Z",
+      "id": "relationship--5e468bea-b89b-4174-9b10-c22085af3cfd",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--3b9dc3b9-9cf6-45b4-bd34-02c9b296314f",
+      "target_ref": "attack-pattern--0d91b3c0-5e50-47c3-949a-2a796f04d144",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-17T00:16:21.312Z",
+      "modified": "2024-05-17T00:16:21.312Z",
+      "id": "relationship--96a7dbc5-abec-4c5d-95cb-c72059a24304",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--3b9dc3b9-9cf6-45b4-bd34-02c9b296314f",
+      "target_ref": "attack-pattern--d511a6f6-4a33-41d5-bc95-c343875d1377",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-17T00:16:27.988Z",
+      "modified": "2024-05-17T00:16:27.988Z",
+      "id": "relationship--0f755f19-b004-49a0-943d-226d5b6863b9",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--669e4bb4-8f3e-406b-ac2d-ee8c1f1f3c5b",
+      "target_ref": "attack-pattern--dfd7cc1d-e1d8-4394-a198-97c4cab8aa67",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-17T00:18:32.839Z",
+      "modified": "2024-05-17T00:18:32.839Z",
+      "id": "relationship--4e158e9f-4f65-49e4-9e31-d5ff6b47be6e",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--669e4bb4-8f3e-406b-ac2d-ee8c1f1f3c5b",
+      "target_ref": "attack-pattern--0f4a0c76-ab2d-4cb0-85d3-3f0efb8cba0d",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-17T00:20:12.607Z",
+      "modified": "2024-05-17T00:20:12.607Z",
+      "id": "relationship--12ef33fc-fcc8-425b-9a23-0c6949bd4c44",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--90f9b5cf-283a-4dc9-90ea-b8e35d9d0493",
+      "target_ref": "attack-pattern--34f1d81d-fe88-4f97-bd3b-a3164536255d",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-17T00:22:03.897Z",
+      "modified": "2024-05-17T00:22:03.897Z",
+      "id": "relationship--17c3c92b-6342-456e-8e20-7d0fb22bd2f7",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--a5ec6aa1-5a92-40c6-a6bc-f325d56889e7",
+      "target_ref": "attack-pattern--43e7dc91-05b2-474c-b9ac-2ed4fe101f4d",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-17T00:24:41.205Z",
+      "modified": "2024-05-17T00:24:41.205Z",
+      "id": "relationship--a67b3b14-7224-4a39-bf4c-24f6e9baf490",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--17a89738-4ea6-44d1-81c9-88fdea193d42",
+      "target_ref": "attack-pattern--be2dcee9-a7a7-4e38-afd6-21b31ecc3d63",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-17T00:27:49.676Z",
+      "modified": "2024-05-17T00:27:49.676Z",
+      "id": "relationship--64878908-ef4a-46e2-aebc-058a1094e2df",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--17a89738-4ea6-44d1-81c9-88fdea193d42",
+      "target_ref": "attack-pattern--3d1b9d7e-3921-4d25-845a-7d9f15c0da44",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-17T00:28:21.246Z",
+      "modified": "2024-05-17T00:28:21.246Z",
+      "id": "relationship--2f614e7e-6aa7-46d3-a3e5-9568d3794a83",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--76aa0545-cbc2-4d98-9720-ff64b0647f83",
+      "target_ref": "attack-pattern--910906dd-8c0a-475a-9cc1-5e029e2fad58",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-17T00:32:30.994Z",
+      "modified": "2024-05-17T00:32:30.994Z",
+      "id": "relationship--c86aeeeb-627a-47cb-9543-7e6e4b299d97",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--d42a9b93-7d2b-4ef5-b464-45c9977690f8",
+      "target_ref": "attack-pattern--f1951e8a-500e-4a26-8803-76d95c4554b4",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-17T00:33:53.052Z",
+      "modified": "2024-05-17T00:33:53.052Z",
+      "id": "relationship--52d8b496-6cb5-428a-9bbd-cad69d641e25",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--d42a9b93-7d2b-4ef5-b464-45c9977690f8",
+      "target_ref": "attack-pattern--bf90d72c-c00b-45e3-b3aa-68560560d4c5",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-17T00:34:00.817Z",
+      "modified": "2024-05-17T00:34:00.817Z",
+      "id": "relationship--fbc6ca85-52a2-40e9-b230-3d1745179cae",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--d42a9b93-7d2b-4ef5-b464-45c9977690f8",
+      "target_ref": "attack-pattern--01a5a209-b94c-450b-b7f9-946497d91055",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-17T00:34:15.959Z",
+      "modified": "2024-05-17T00:34:15.959Z",
+      "id": "relationship--a84d9e0a-d099-4671-89d1-d0dee0ce6b9f",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--33b81a6c-c905-46e7-b3c5-6cbbe416db84",
+      "target_ref": "attack-pattern--28170e17-8384-415c-8486-2e6b294cb803",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-17T00:37:21.153Z",
+      "modified": "2024-05-17T00:37:21.153Z",
+      "id": "relationship--ed177da8-72a9-4073-ad01-0cdf5e4aef9b",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--5ac11aa8-2dc8-441e-bd57-3925d89996ef",
+      "target_ref": "attack-pattern--3b744087-9945-4a6f-91e8-9dbceda417a4",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-17T00:40:41.453Z",
+      "modified": "2024-05-17T00:40:41.453Z",
+      "id": "relationship--d3b56d32-e665-4897-b2af-60f4c7ac912a",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--3e404428-64c9-4912-9431-a2a1d75aa453",
+      "target_ref": "attack-pattern--bd5b58a4-a52d-4a29-bc0d-3f1d3968eb6b",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-17T00:42:58.987Z",
+      "modified": "2024-05-17T00:42:58.987Z",
+      "id": "relationship--82970865-e035-403c-89a3-4cc6db61d4e1",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--927dce86-4b98-4575-a27f-d35456adb4cc",
+      "target_ref": "attack-pattern--5d0d3609-d06d-49e1-b9c9-b544e0c618cb",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-17T00:45:50.176Z",
+      "modified": "2024-05-17T00:45:50.176Z",
+      "id": "relationship--f6351d14-112f-447d-85f5-79c38a55a8a4",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--47566e3d-bc61-4bee-8117-e1c096472245",
+      "target_ref": "attack-pattern--391d824f-0ef1-47a0-b0ee-c59a75e27670",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-17T00:47:11.836Z",
+      "modified": "2024-05-17T00:47:11.836Z",
+      "id": "relationship--df366979-9d5e-417c-bec5-de03b6499cea",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--c8cb35c5-2c44-47bb-afd7-c573c34f7f15",
+      "target_ref": "attack-pattern--b80d107d-fa0d-4b60-9684-b0433e8bdba0",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-17T00:48:50.899Z",
+      "modified": "2024-05-17T00:48:50.899Z",
+      "id": "relationship--9ddeb5ce-6064-4464-bd56-d616ba1375f7",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "source_ref": "course-of-action--3e404428-64c9-4912-9431-a2a1d75aa453",
+      "target_ref": "attack-pattern--1c4e5d32-1fe9-4116-9d9d-59e3925bd6a2",
+      "relationship_type": "mitigates",
+      "type": "relationship",
+      "created": "2024-05-17T00:54:21.921Z",
+      "modified": "2024-05-17T00:54:21.921Z",
+      "id": "relationship--c2d13a88-db36-466f-9e27-c457574146a9",
+      "targetObjectType": "attack-pattern"
+    },
+    {
+      "name": "Nounou Mbeiri",
+      "description": "MITRE ATT&CK Defender (MAD) | Cyber Threat Intelligence researcher | Collaborator in Cyber Threat Intelligence community (GINSEG) | Public Speaking",
+      "identity_class": "individual",
+      "contact_information": "Twitter: @Nounou_Mbeiri",
+      "id": "identity--1dd7bca6-cef5-4395-826f-64994241b3cf",
+      "type": "identity",
+      "spec_version": "2.1",
+      "created": "2021-03-10T10:00:00.000Z",
+      "modified": "2021-03-10T10:00:00.000Z"
+    }
+  ]
+}

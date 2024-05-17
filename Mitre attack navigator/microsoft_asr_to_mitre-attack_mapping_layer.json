@@ -1,0 +1,524 @@
+{
+	"name": "Microsoft ASR to MITRE-ATTACK Mapping Layer",
+	"versions": {
+		"attack": "15",
+		"navigator": "5.0.1",
+		"layer": "4.5"
+	},
+	"domain": "enterprise-attack",
+	"description": "Microsoft ASR to MITRE-ATTACK Mapping",
+	"filters": {
+		"platforms": [
+			"Windows"
+		]
+	},
+	"sorting": 0,
+	"layout": {
+		"layout": "flat",
+		"aggregateFunction": "average",
+		"showID": true,
+		"showName": true,
+		"showAggregateScores": false,
+		"countUnscored": false,
+		"expandedSubtechniques": "annotated"
+	},
+	"hideDisabled": false,
+	"techniques": [
+		{
+			"techniqueID": "T1543",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block abuse of exploited vulnerable signed drivers\n\nThis rule prevents an application from writing a vulnerable signed driver to disk. In-the-wild, vulnerable signed drivers can be exploited by local applications - that have sufficient privileges - to gain access to the kernel. Vulnerable signed drivers enable attackers to disable or circumvent security solutions, eventually leading to system compromise.\nThe Block abuse of exploited vulnerable signed drivers rule doesn't block a driver already existing on the system from being loaded.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-abuse-of-exploited-vulnerable-signed-drivers",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1543",
+			"tactic": "privilege-escalation",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block abuse of exploited vulnerable signed drivers\n\nThis rule prevents an application from writing a vulnerable signed driver to disk. In-the-wild, vulnerable signed drivers can be exploited by local applications - that have sufficient privileges - to gain access to the kernel. Vulnerable signed drivers enable attackers to disable or circumvent security solutions, eventually leading to system compromise.\nThe Block abuse of exploited vulnerable signed drivers rule doesn't block a driver already existing on the system from being loaded.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-abuse-of-exploited-vulnerable-signed-drivers",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1543.003",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block abuse of exploited vulnerable signed drivers\n\nThis rule prevents an application from writing a vulnerable signed driver to disk. In-the-wild, vulnerable signed drivers can be exploited by local applications - that have sufficient privileges - to gain access to the kernel. Vulnerable signed drivers enable attackers to disable or circumvent security solutions, eventually leading to system compromise.\nThe Block abuse of exploited vulnerable signed drivers rule doesn't block a driver already existing on the system from being loaded.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-abuse-of-exploited-vulnerable-signed-drivers",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1543.003",
+			"tactic": "privilege-escalation",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block abuse of exploited vulnerable signed drivers\n\nThis rule prevents an application from writing a vulnerable signed driver to disk. In-the-wild, vulnerable signed drivers can be exploited by local applications - that have sufficient privileges - to gain access to the kernel. Vulnerable signed drivers enable attackers to disable or circumvent security solutions, eventually leading to system compromise.\nThe Block abuse of exploited vulnerable signed drivers rule doesn't block a driver already existing on the system from being loaded.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-abuse-of-exploited-vulnerable-signed-drivers",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1068",
+			"tactic": "privilege-escalation",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block abuse of exploited vulnerable signed drivers\n\nThis rule prevents an application from writing a vulnerable signed driver to disk. In-the-wild, vulnerable signed drivers can be exploited by local applications - that have sufficient privileges - to gain access to the kernel. Vulnerable signed drivers enable attackers to disable or circumvent security solutions, eventually leading to system compromise.\nThe Block abuse of exploited vulnerable signed drivers rule doesn't block a driver already existing on the system from being loaded.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-abuse-of-exploited-vulnerable-signed-drivers",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1137",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block Office application from creating child processes\n\nThis rule blocks Office apps from creating child processes. Office apps include Word, Excel, PowerPoint, OneNote, and Access.\nCreating malicious child processes is a common malware strategy. Malware that abuses Office as a vector often runs VBA macros and exploit code to download and attempt to run more payloads. However, some legitimate line-of-business applications might also generate child processes for benign purposes; such as spawning a command prompt or using PowerShell to configure registry settings.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-all-office-applications-from-creating-child-processes",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1137.001",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block Office application from creating child processes\n\nThis rule blocks Office apps from creating child processes. Office apps include Word, Excel, PowerPoint, OneNote, and Access.\nCreating malicious child processes is a common malware strategy. Malware that abuses Office as a vector often runs VBA macros and exploit code to download and attempt to run more payloads. However, some legitimate line-of-business applications might also generate child processes for benign purposes; such as spawning a command prompt or using PowerShell to configure registry settings.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-all-office-applications-from-creating-child-processes",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1137.002",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block Office application from creating child processes\n\nThis rule blocks Office apps from creating child processes. Office apps include Word, Excel, PowerPoint, OneNote, and Access.\nCreating malicious child processes is a common malware strategy. Malware that abuses Office as a vector often runs VBA macros and exploit code to download and attempt to run more payloads. However, some legitimate line-of-business applications might also generate child processes for benign purposes; such as spawning a command prompt or using PowerShell to configure registry settings.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-all-office-applications-from-creating-child-processes",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1137.003",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block Office application from creating child processes\n\nThis rule blocks Office apps from creating child processes. Office apps include Word, Excel, PowerPoint, OneNote, and Access.\nCreating malicious child processes is a common malware strategy. Malware that abuses Office as a vector often runs VBA macros and exploit code to download and attempt to run more payloads. However, some legitimate line-of-business applications might also generate child processes for benign purposes; such as spawning a command prompt or using PowerShell to configure registry settings.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-all-office-applications-from-creating-child-processes",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1137.004",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block Office application from creating child processes\n\nThis rule blocks Office apps from creating child processes. Office apps include Word, Excel, PowerPoint, OneNote, and Access.\nCreating malicious child processes is a common malware strategy. Malware that abuses Office as a vector often runs VBA macros and exploit code to download and attempt to run more payloads. However, some legitimate line-of-business applications might also generate child processes for benign purposes; such as spawning a command prompt or using PowerShell to configure registry settings.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-all-office-applications-from-creating-child-processes",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1003.001",
+			"tactic": "credential-access",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block credential stealing from the Windows local security authority subsystem (lsass.exe)\n\nThis rule helps prevent credential stealing by locking down Local Security Authority Subsystem Service (LSASS).\nLSASS authenticates users who sign in on a Windows computer. Microsoft Defender Credential Guard in Windows normally prevents attempts to extract credentials from LSASS. Some organizations can't enable Credential Guard on all of their computers because of compatibility issues with custom smartcard drivers or other programs that load into the Local Security Authority (LSA). In these cases, attackers can use tools like Mimikatz to scrape cleartext passwords and NTLM hashes from LSASS.\nBy default the state of this rule is set to block. In most cases, many processes make calls to LSASS for access rights that are not needed. For example, such as when the initial block from the ASR rule results in a subsequent call for a lesser privilege which subsequently succeeds. For information about the types of rights that are typically requested in process calls to LSASS, see: Process Security and Access Rights.\nEnabling this rule doesn't provide additional protection if you have LSA protection enabled since the ASR rule and LSA protection work similarly. However, when LSA protection cannot be enabled, this rule can be configured to provide equivalent protection against malware that target lsass.exe.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-credential-stealing-from-the-windows-local-security-authority-subsystem",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1204.002",
+			"tactic": "execution",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block executable content from email client and webmail\n\nThis rule blocks email opened within the Microsoft Outlook application, or Outlook.com and other popular webmail providers from propagating the following file types:\nExecutable files (such as .exe, .dll, or .scr)\nScript files (such as a PowerShell .ps1, Visual Basic .vbs, or JavaScript .js file)\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-executable-content-from-email-client-and-webmail",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1204",
+			"tactic": "execution",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block executable files from running unless they meet a prevalence, age, or trusted list criteria\n\nThis rule blocks executable files, such as .exe, .dll, or .scr, from launching. Thus, launching untrusted or unknown executable files can be risky, as it might not be initially clear if the files are malicious.\nImportant:\nYou must enable cloud-delivered protection to use this rule.\nThe rule Block executable files from running unless they meet a prevalence, age, or trusted list criterion with GUID 01443614-cd74-433a-b99e-2ecdc07bfc25 is owned by Microsoft and is not specified by admins. This rule uses cloud-delivered protection to update its trusted list regularly.\nYou can specify individual files or folders (using folder paths or fully qualified resource names) but you can't specify which rules or exclusions apply to.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-executable-files-from-running-unless-they-meet-a-prevalence-age-or-trusted-list-criterion",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1027.010",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block execution of potentially obfuscated scripts\n\nThis rule detects suspicious properties within an obfuscated script.\nImportant:\nPowerShell scripts are now supported for the \"Block execution of potentially obfuscated scripts\" rule.\nScript obfuscation is a common technique that both malware authors and legitimate applications use to hide intellectual property or decrease script loading times. Malware authors also use obfuscation to make malicious code harder to read, which hampers close scrutiny by humans and security software.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-execution-of-potentially-obfuscated-scripts",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1027.013",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block execution of potentially obfuscated scripts\n\nThis rule detects suspicious properties within an obfuscated script.\nImportant:\nPowerShell scripts are now supported for the \"Block execution of potentially obfuscated scripts\" rule.\nScript obfuscation is a common technique that both malware authors and legitimate applications use to hide intellectual property or decrease script loading times. Malware authors also use obfuscation to make malicious code harder to read, which hampers close scrutiny by humans and security software.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-execution-of-potentially-obfuscated-scripts",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1059.007",
+			"tactic": "execution",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block JavaScript or VBScript from launching downloaded executable content\n\nThis rule prevents scripts from launching potentially malicious downloaded content. Malware written in JavaScript or VBScript often acts as a downloader to fetch and launch other malware from the Internet.\nAlthough not common, line-of-business applications sometimes use scripts to download and launch installers.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-javascript-or-vbscript-from-launching-downloaded-executable-content",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1059.005",
+			"tactic": "execution",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block JavaScript or VBScript from launching downloaded executable content\n\nThis rule prevents scripts from launching potentially malicious downloaded content. Malware written in JavaScript or VBScript often acts as a downloader to fetch and launch other malware from the Internet.\nAlthough not common, line-of-business applications sometimes use scripts to download and launch installers.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-javascript-or-vbscript-from-launching-downloaded-executable-content",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1137.006",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block Office applications from creating executable content\n\nThis rule prevents Office apps, including Word, Excel, and PowerPoint, from creating potentially malicious executable content, by blocking malicious code from being written to disk.\nMalware that abuses Office as a vector might attempt to break out of Office and save malicious components to disk. These malicious components would survive a computer reboot and persist on the system. Therefore, this rule defends against a common persistence technique. This rule also blocks execution of untrusted files that may have been saved by Office macros that are allowed to run in Office files.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-office-applications-from-creating-executable-content",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1055",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block Office applications from injecting code into other processes\n\nThis rule blocks code injection attempts from Office apps into other processes.\nNote:\nThe Block applications from injecting code into other processes ASR rule does not support WARN mode.\nImportant:\nThis rule requires restarting Microsoft 365 Apps (Office applications) for the configuration changes to take effect.\nAttackers might attempt to use Office apps to migrate malicious code into other processes through code injection, so the code can masquerade as a clean process.\nThere are no known legitimate business purposes for using code injection.\nThis rule applies to Word, Excel, OneNote, and PowerPoint.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-office-applications-from-injecting-code-into-other-processes",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1055",
+			"tactic": "privilege-escalation",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block Office applications from injecting code into other processes\n\nThis rule blocks code injection attempts from Office apps into other processes.\nNote:\nThe Block applications from injecting code into other processes ASR rule does not support WARN mode.\nImportant:\nThis rule requires restarting Microsoft 365 Apps (Office applications) for the configuration changes to take effect.\nAttackers might attempt to use Office apps to migrate malicious code into other processes through code injection, so the code can masquerade as a clean process.\nThere are no known legitimate business purposes for using code injection.\nThis rule applies to Word, Excel, OneNote, and PowerPoint.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-office-applications-from-injecting-code-into-other-processes",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1137.005",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block Office communication application from creating child processes\n\nThis rule prevents Outlook from creating child processes, while still allowing legitimate Outlook functions.\nThis rule protects against social engineering attacks and prevents exploiting code from abusing vulnerabilities in Outlook. It also protects against Outlook rules and forms exploits that attackers can use when a user's credentials are compromised.\nNote:\nThis rule blocks DLP policy tips and ToolTips in Outlook. This rule applies to Outlook and Outlook.com only.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-office-communication-application-from-creating-child-processes",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1203",
+			"tactic": "execution",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block Office communication application from creating child processes\n\nThis rule prevents Outlook from creating child processes, while still allowing legitimate Outlook functions.\nThis rule protects against social engineering attacks and prevents exploiting code from abusing vulnerabilities in Outlook. It also protects against Outlook rules and forms exploits that attackers can use when a user's credentials are compromised.\nNote:\nThis rule blocks DLP policy tips and ToolTips in Outlook. This rule applies to Outlook and Outlook.com only.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-office-communication-application-from-creating-child-processes",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1546.003",
+			"tactic": "privilege-escalation",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block persistence through WMI event subscription\n\nThis rule prevents malware from abusing WMI to attain persistence on a device.\nImportant:\nFile and folder exclusions don't apply to this attack surface reduction rule.\nFileless threats employ various tactics to stay hidden, to avoid being seen in the file system, and to gain periodic execution control. Some threats can abuse the WMI repository and event model to stay hidden.\nNote:\nIf CcmExec.exe (SCCM Agent) is detected on the device, the ASR rule is classified as \"not applicable\" in Defender for Endpoint settings in the Microsoft Defender portal.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-persistence-through-wmi-event-subscription",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1546.003",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block persistence through WMI event subscription\n\nThis rule prevents malware from abusing WMI to attain persistence on a device.\nImportant:\nFile and folder exclusions don't apply to this attack surface reduction rule.\nFileless threats employ various tactics to stay hidden, to avoid being seen in the file system, and to gain periodic execution control. Some threats can abuse the WMI repository and event model to stay hidden.\nNote:\nIf CcmExec.exe (SCCM Agent) is detected on the device, the ASR rule is classified as \"not applicable\" in Defender for Endpoint settings in the Microsoft Defender portal.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-persistence-through-wmi-event-subscription",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1047",
+			"tactic": "execution",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block process creations originating from PSExec and WMI commands\n\nThis rule blocks processes created through PsExec and WMI from running. Both PsExec and WMI can remotely execute code. There's a risk of malware abusing functionality of PsExec and WMI for command and control purposes, or to spread an infection throughout an organization's network.\nWarning:\nOnly use this rule if you're managing your devices with Intune or another MDM solution. This rule is incompatible with management through Microsoft Endpoint Configuration Manager because this rule blocks WMI commands the Configuration Manager client uses to function correctly.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-process-creations-originating-from-psexec-and-wmi-commands",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1569.002",
+			"tactic": "execution",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block process creations originating from PSExec and WMI commands\n\nThis rule blocks processes created through PsExec and WMI from running. Both PsExec and WMI can remotely execute code. There's a risk of malware abusing functionality of PsExec and WMI for command and control purposes, or to spread an infection throughout an organization's network.\nWarning:\nOnly use this rule if you're managing your devices with Intune or another MDM solution. This rule is incompatible with management through Microsoft Endpoint Configuration Manager because this rule blocks WMI commands the Configuration Manager client uses to function correctly.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-process-creations-originating-from-psexec-and-wmi-commands",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1570",
+			"tactic": "lateral-movement",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block process creations originating from PSExec and WMI commands\n\nThis rule blocks processes created through PsExec and WMI from running. Both PsExec and WMI can remotely execute code. There's a risk of malware abusing functionality of PsExec and WMI for command and control purposes, or to spread an infection throughout an organization's network.\nWarning:\nOnly use this rule if you're managing your devices with Intune or another MDM solution. This rule is incompatible with management through Microsoft Endpoint Configuration Manager because this rule blocks WMI commands the Configuration Manager client uses to function correctly.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-process-creations-originating-from-psexec-and-wmi-commands",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1562.009",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block rebooting machine in Safe Mode (preview)\n\nThis rule prevents the execution of commands to restart machines in Safe Mode.\nSafe Mode is a diagnostic mode that only loads the essential files and drivers needed for Windows to run. However, in Safe Mode, many security products are either disabled or operate in a limited capacity, which allows attackers to further launch tampering commands, or simply execute and encrypt all files on the machine. This rule blocks such attacks by preventing processes from restarting machines in Safe Mode.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-rebooting-machine-in-safe-mode-preview",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1091",
+			"tactic": "lateral-movement",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block untrusted and unsigned processes that run from USB\n\nWith this rule, admins can prevent unsigned or untrusted executable files from running from USB removable drives, including SD cards. Blocked file types include executable files (such as .exe, .dll, or .scr)\nImportant:\nFiles copied from the USB to the disk drive will be blocked by this rule if and when it's about to be executed on the disk drive.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-untrusted-and-unsigned-processes-that-run-from-usb",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1091",
+			"tactic": "initial-access",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block untrusted and unsigned processes that run from USB\n\nWith this rule, admins can prevent unsigned or untrusted executable files from running from USB removable drives, including SD cards. Blocked file types include executable files (such as .exe, .dll, or .scr)\nImportant:\nFiles copied from the USB to the disk drive will be blocked by this rule if and when it's about to be executed on the disk drive.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-untrusted-and-unsigned-processes-that-run-from-usb",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1036.003",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block use of copied or impersonated system tools (preview)\n\nThis rule blocks the use of executable files that are identified as copies of Windows system tools. These files are either duplicates or impostors of the original system tools.\nSome malicious programs may try to copy or impersonate Windows system tools to avoid detection or gain privileges. Allowing such executable files can lead to potential attacks. This rule prevents propagation and execution of such duplicates and impostors of the system tools on Windows machines.\nNote:\nThis capability is currently in preview. Additional upgrades to improve efficacy are under development.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-use-of-copied-or-impersonated-system-tools-preview",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1036.005",
+			"tactic": "defense-evasion",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block use of copied or impersonated system tools (preview)\n\nThis rule blocks the use of executable files that are identified as copies of Windows system tools. These files are either duplicates or impostors of the original system tools.\nSome malicious programs may try to copy or impersonate Windows system tools to avoid detection or gain privileges. Allowing such executable files can lead to potential attacks. This rule prevents propagation and execution of such duplicates and impostors of the system tools on Windows machines.\nNote:\nThis capability is currently in preview. Additional upgrades to improve efficacy are under development.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-use-of-copied-or-impersonated-system-tools-preview",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1505.003",
+			"tactic": "persistence",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block Webshell creation for Servers\n\nThis rule blocks web shell script creation on Microsoft Server, Exchange Role.\nA web shell script is a specifically crafted script that allows an attacker to control the compromised server. A web shell may include functionalities such as receiving and executing malicious commands, downloading and executing malicious files, stealing and exfiltrating credentials and sensitive information, identifying potential targets etc.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-webshell-creation-for-servers",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1106",
+			"tactic": "execution",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Block Win32 API calls from Office macros\n\nThis rule prevents VBA macros from calling Win32 APIs.\nOffice VBA enables Win32 API calls. Malware can abuse this capability, such as calling Win32 APIs to launch malicious shellcode without writing anything directly to disk. Most organizations don't rely on the ability to call Win32 APIs in their day-to-day functioning, even if they use macros in other ways.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-win32-api-calls-from-office-macros",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1486",
+			"tactic": "impact",
+			"score": 1,
+			"color": "",
+			"comment": "\n\nMitigates > \n\nName: Use advanced protection against ransomware\n\nThis rule provides an extra layer of protection against ransomware. It uses both client and cloud heuristics to determine whether a file resembles ransomware. This rule doesn't block files that have one or more of the following characteristics:\nThe file has already been found to be unharmful in the Microsoft cloud.\nThe file is a valid signed file.\nThe file is prevalent enough to not be considered as ransomware.\nThe rule tends to err on the side of caution to prevent ransomware.\nNote:\nYou must enable cloud-delivered protection to use this rule.\n\nhttps://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#use-advanced-protection-against-ransomware",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": false
+		},
+		{
+			"techniqueID": "T1003",
+			"tactic": "credential-access",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1562",
+			"tactic": "defense-evasion",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1036",
+			"tactic": "defense-evasion",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1059",
+			"tactic": "execution",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1027",
+			"tactic": "defense-evasion",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1546",
+			"tactic": "privilege-escalation",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1546",
+			"tactic": "persistence",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1569",
+			"tactic": "execution",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": true
+		},
+		{
+			"techniqueID": "T1505",
+			"tactic": "persistence",
+			"color": "",
+			"comment": "",
+			"enabled": true,
+			"metadata": [],
+			"links": [],
+			"showSubtechniques": true
+		}
+	],
+	"gradient": {
+		"colors": [
+			"#3182bdff",
+			"#3182bdff"
+		],
+		"minValue": 0,
+		"maxValue": 1
+	},
+	"legendItems": [],
+	"metadata": [],
+	"links": [
+		{
+			"label": "Microsoft ASR to MITRE-ATTACK Mapping Project",
+			"url": "https://github.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project"
+		}
+	],
+	"showTacticRowBackground": false,
+	"tacticRowBackground": "#dddddd",
+	"selectTechniquesAcrossTactics": true,
+	"selectSubtechniquesWithParent": false,
+	"selectVisibleTechniques": false
+}
