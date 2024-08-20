@@ -2,7 +2,7 @@
 <img src="../ASRtoATTACKlogo.png" style="border-radius:50px;width:20%;height:auto"> 
 </p>
 
-# Advanced hunting ASR Rules KQL:
+# Advanced hunting ASR Rules KQL Query:
 
 | ASR Rules KQL Query | Technique IDs Mapping | Mapping types | Technique Names |
 |---------------|-----------------------|---------------|-------------------------|
