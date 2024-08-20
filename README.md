@@ -1,3 +1,8 @@
+<p align="center">
+<img src="ASRtoATTACKlogo.png" style="border-radius:50px;width:15%;height:auto"> 
+</p>
+
+
 # Microsoft ASR to MITRE-ATTACK Mapping Project
 **Description:**\
 This project aims to bridge the gap between Microsoft Attack Surface Reduction (ASR) rules and MITRE ATT&CK by mapping ASR rules to their corresponding ATT&CK techniques. The primary goal is to enhance the understanding of how ASR rules align with the ATT&CK framework.
