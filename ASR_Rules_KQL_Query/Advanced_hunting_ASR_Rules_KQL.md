@@ -1,6 +1,5 @@
-# LOLBins CTI-Driven
 <p align="center">
-<img src="../ASRtoATTACKlogo.png" style="border-radius:60px;width:20%;height:auto"> 
+<img src="../ASRtoATTACKlogo.png" style="border-radius:50px;width:20%;height:auto"> 
 </p>
 
 # Advanced hunting ASR Rules KQL:
