@@ -16,6 +16,7 @@ This query identifies activities triggered by the Attack Surface Reduction (ASR)
 ## Defender for Endpoint and Sentinel Query
 
 ```kusto
+// Replace "Timestamp" with "TimeGenerated" when running this KQL query in Microsoft Sentinel.
 let ASRTOATTACKCCSV = externaldata(
     ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string
 )[@"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv"]
