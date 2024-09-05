@@ -1,0 +1,1107 @@
+{
+    "metadata": {
+        "mapping_version": "",
+        "technology_domain": "enterprise",
+        "attack_version": "14.1",
+        "mapping_framework": "Microsoft Attack surface reduction rules (ASR)",
+        "mapping_framework_version": "rev_05022024",
+        "author": "Nounou Mbeiri",
+        "contact": "nounou.mbeiri@gmail.com",
+        "organization": "Nounou Mbeiri",
+        "creation_date": "08/27/2024",
+        "last_update": "09/04/2024",
+        "mapping_types": {
+            "Detect": {
+                "name": "Detect",
+                "description": "Advanced hunting KQL Query to identifies activities triggered by the Attack Surface Reduction (ASR) rule"
+            },
+            "Mitigate": {
+                "name": "Mitigate",
+                "description": "Attack Surface Reduction (ASR) rules are a crucial component in strengthening an organization's security posture. By minimizing the attack surface, ASR rules help to reduce the number of entry points that malicious actors can exploit. These rules are designed to block or limit behaviors commonly associated with malware and other threats, such as executing scripts or launching untrusted executables. By enforcing these restrictions, ASR rules prevent potentially harmful actions before they can compromise systems or data, thereby offering an effective layer of defense against a wide range of cyber threats."
+            }
+        },
+        "capability_groups": {
+            "ASR": "Microsoft Attack surface reduction rules (ASR) to MITRE-ATTACK Mapping"
+        }
+    },
+    "mapping_objects": [
+        {
+            "capability_id": "M-ASR-9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2",
+            "capability_description": "Block credential stealing from the Windows local security authority subsystem (lsass.exe)",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1003.001",
+            "attack_object_name": "LSASS Memory",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "related_score": "T1003",
+            "comments": "This rule helps prevent credential stealing by locking down Local Security Authority Subsystem Service (LSASS).\n\nLSASS authenticates users who sign in on a Windows computer. Microsoft Defender Credential Guard in Windows normally prevents attempts to extract credentials from LSASS. Some organizations can't enable Credential Guard on all of their computers because of compatibility issues with custom smartcard drivers or other programs that load into the Local Security Authority (LSA). In these cases, attackers can use tools like Mimikatz to scrape cleartext passwords and NTLM hashes from LSASS.\n\nBy default the state of this rule is set to block. In most cases, many processes make calls to LSASS for access rights that are not needed. For example, such as when the initial block from the ASR rule results in a subsequent call for a lesser privilege which subsequently succeeds. For information about the types of rights that are typically requested in process calls to LSASS, see: Process Security and Access Rights.\n\nEnabling this rule doesn't provide additional protection if you have LSA protection enabled since the ASR rule and LSA protection work similarly. However, when LSA protection cannot be enabled, this rule can be configured to provide equivalent protection against malware that target lsass.exe.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-credential-stealing-from-the-windows-local-security-authority-subsystem"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-5beb7efe-fd9a-4556-801d-275e5ffc04cc",
+            "capability_description": "Block execution of potentially obfuscated scripts",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1027.010",
+            "attack_object_name": "Command Obfuscation",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "related_score": "T1027",
+            "comments": "This rule detects suspicious properties within an obfuscated script.\n\nImportant:\nPowerShell scripts are now supported for the \"Block execution of potentially obfuscated scripts\" rule.\n\nScript obfuscation is a common technique that both malware authors and legitimate applications use to hide intellectual property or decrease script loading times. Malware authors also use obfuscation to make malicious code harder to read, which hampers close scrutiny by humans and security software.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-execution-of-potentially-obfuscated-scripts"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-5beb7efe-fd9a-4556-801d-275e5ffc04cc",
+            "capability_description": "Block execution of potentially obfuscated scripts",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1027.013",
+            "attack_object_name": "Encrypted/Encoded File",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "related_score": "T1027",
+            "comments": "This rule detects suspicious properties within an obfuscated script.\n\nImportant:\nPowerShell scripts are now supported for the \"Block execution of potentially obfuscated scripts\" rule.\n\nScript obfuscation is a common technique that both malware authors and legitimate applications use to hide intellectual property or decrease script loading times. Malware authors also use obfuscation to make malicious code harder to read, which hampers close scrutiny by humans and security software.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-execution-of-potentially-obfuscated-scripts"
+            ],
+            "status": "complete",
+            "attack_version": "[UNKNOWN_VERSION]"
+        },
+        {
+            "capability_id": "M-ASR-c0033c00-d16d-4114-a5a0-dc9b3a7d2ceb",
+            "capability_description": "Block use of copied or impersonated system tools (preview)",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1036.003",
+            "attack_object_name": "Rename System Utilities",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "related_score": "T1036",
+            "comments": "This rule blocks the use of executable files that are identified as copies of Windows system tools. These files are either duplicates or impostors of the original system tools.\n\nSome malicious programs may try to copy or impersonate Windows system tools to avoid detection or gain privileges. Allowing such executable files can lead to potential attacks. This rule prevents propagation and execution of such duplicates and impostors of the system tools on Windows machines.\n\nNote:\nThis capability is currently in preview. Additional upgrades to improve efficacy are under development.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-use-of-copied-or-impersonated-system-tools-preview"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-c0033c00-d16d-4114-a5a0-dc9b3a7d2ceb",
+            "capability_description": "Block use of copied or impersonated system tools (preview)",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1036.005",
+            "attack_object_name": "Match Legitimate Name or Location",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "related_score": "T1036",
+            "comments": "This rule blocks the use of executable files that are identified as copies of Windows system tools. These files are either duplicates or impostors of the original system tools.\n\nSome malicious programs may try to copy or impersonate Windows system tools to avoid detection or gain privileges. Allowing such executable files can lead to potential attacks. This rule prevents propagation and execution of such duplicates and impostors of the system tools on Windows machines.\n\nNote:\nThis capability is currently in preview. Additional upgrades to improve efficacy are under development.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-use-of-copied-or-impersonated-system-tools-preview"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-d1e49aac-8f56-4280-b9ba-993a6d77406c",
+            "capability_description": "Block process creations originating from PSExec and WMI commands",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1047",
+            "attack_object_name": "Windows Management Instrumentation",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "comments": "This rule blocks processes created through PsExec and WMI from running. Both PsExec and WMI can remotely execute code. There's a risk of malware abusing functionality of PsExec and WMI for command and control purposes, or to spread an infection throughout an organization's network.\n\nWarning:\nOnly use this rule if you're managing your devices with Intune or another MDM solution. This rule is incompatible with management through Microsoft Endpoint Configuration Manager because this rule blocks WMI commands the Configuration Manager client uses to function correctly.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-process-creations-originating-from-psexec-and-wmi-commands"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-75668c1f-73b5-4cf0-bb93-3ecf5cb7cc84",
+            "capability_description": "Block Office applications from injecting code into other processes",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1055",
+            "attack_object_name": "Process Injection",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "comments": "This rule blocks code injection attempts from Office apps into other processes.\n\nNote:\nThe Block applications from injecting code into other processes ASR rule does not support WARN mode.\n\nImportant:\nThis rule requires restarting Microsoft 365 Apps (Office applications) for the configuration changes to take effect.\n\nAttackers might attempt to use Office apps to migrate malicious code into other processes through code injection, so the code can masquerade as a clean process.\nThere are no known legitimate business purposes for using code injection.\nThis rule applies to Word, Excel, OneNote, and PowerPoint.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-office-applications-from-injecting-code-into-other-processes"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-d3e037e1-3eb8-44c8-a917-57927947596d",
+            "capability_description": "Block JavaScript or VBScript from launching downloaded executable content",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1059.005",
+            "attack_object_name": "Visual Basic",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "related_score": "T1059",
+            "comments": "This rule prevents scripts from launching potentially malicious downloaded content.\n\nMalware written in JavaScript or VBScript often acts as a downloader to fetch and launch other malware from the Internet.\n\nAlthough not common, line-of-business applications sometimes use scripts to download and launch installers.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-javascript-or-vbscript-from-launching-downloaded-executable-content"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-d3e037e1-3eb8-44c8-a917-57927947596d",
+            "capability_description": "Block JavaScript or VBScript from launching downloaded executable content",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1059.007",
+            "attack_object_name": "JavaScript",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "related_score": "T1059",
+            "comments": "This rule prevents scripts from launching potentially malicious downloaded content.\n\nMalware written in JavaScript or VBScript often acts as a downloader to fetch and launch other malware from the Internet.\n\nAlthough not common, line-of-business applications sometimes use scripts to download and launch installers.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-javascript-or-vbscript-from-launching-downloaded-executable-content"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-56a863a9-875e-4185-98a7-b882c64b5ce5",
+            "capability_description": "Block abuse of exploited vulnerable signed drivers",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1068",
+            "attack_object_name": "Exploitation for Privilege Escalation",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "comments": "This rule prevents an application from writing a vulnerable signed driver to disk. \n\nIn-the-wild, vulnerable signed drivers can be exploited by local applications - that have sufficient privileges - to gain access to the kernel. Vulnerable signed drivers enable attackers to disable or circumvent security solutions, eventually leading to system compromise.\n\nThe Block abuse of exploited vulnerable signed drivers rule doesn't block a driver already existing on the system from being loaded.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-abuse-of-exploited-vulnerable-signed-drivers"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4",
+            "capability_description": "Block untrusted and unsigned processes that run from USB",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1091",
+            "attack_object_name": "Replication Through Removable Media",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "comments": "With this rule, admins can prevent unsigned or untrusted executable files from running from USB removable drives, including SD cards. \n\nBlocked file types include executable files (such as .exe, .dll, or .scr)\n\nImportant:\nFiles copied from the USB to the disk drive will be blocked by this rule if and when it's about to be executed on the disk drive.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-untrusted-and-unsigned-processes-that-run-from-usb"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-92e97fa1-2edf-4476-bdd6-9dd0b4dddc7b",
+            "capability_description": "Block Win32 API calls from Office macros",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1106",
+            "attack_object_name": "Native API",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "comments": "This rule prevents VBA macros from calling Win32 APIs.\n\nOffice VBA enables Win32 API calls. Malware can abuse this capability, such as calling Win32 APIs to launch malicious shellcode without writing anything directly to disk. Most organizations don't rely on the ability to call Win32 APIs in their day-to-day functioning, even if they use macros in other ways.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-win32-api-calls-from-office-macros"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-d4f940ab-401b-4efc-aadc-ad5f3c50688a",
+            "capability_description": "Block Office application from creating child processes",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1137",
+            "attack_object_name": "Office Application Startup",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "comments": "This rule blocks Office apps from creating child processes. Office apps include Word, Excel, PowerPoint, OneNote, and Access.\n\nCreating malicious child processes is a common malware strategy. Malware that abuses Office as a vector often runs VBA macros and exploit code to download and attempt to run more payloads. However, some legitimate line-of-business applications might also generate child processes for benign purposes; such as spawning a command prompt or using PowerShell to configure registry settings.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-all-office-applications-from-creating-child-processes"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-d4f940ab-401b-4efc-aadc-ad5f3c50688a",
+            "capability_description": "Block Office application from creating child processes",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1137.001",
+            "attack_object_name": "Office Template Macros",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "related_score": "T1137",
+            "comments": "This rule blocks Office apps from creating child processes. Office apps include Word, Excel, PowerPoint, OneNote, and Access.\n\nCreating malicious child processes is a common malware strategy. Malware that abuses Office as a vector often runs VBA macros and exploit code to download and attempt to run more payloads. However, some legitimate line-of-business applications might also generate child processes for benign purposes; such as spawning a command prompt or using PowerShell to configure registry settings.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-all-office-applications-from-creating-child-processes"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-d4f940ab-401b-4efc-aadc-ad5f3c50688a",
+            "capability_description": "Block Office application from creating child processes",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1137.002",
+            "attack_object_name": "Office Test",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "related_score": "T1137",
+            "comments": "This rule blocks Office apps from creating child processes. Office apps include Word, Excel, PowerPoint, OneNote, and Access.\n\nCreating malicious child processes is a common malware strategy. Malware that abuses Office as a vector often runs VBA macros and exploit code to download and attempt to run more payloads. However, some legitimate line-of-business applications might also generate child processes for benign purposes; such as spawning a command prompt or using PowerShell to configure registry settings.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-all-office-applications-from-creating-child-processes"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-d4f940ab-401b-4efc-aadc-ad5f3c50688a",
+            "capability_description": "Block Office application from creating child processes",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1137.003",
+            "attack_object_name": "Outlook Forms",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "related_score": "T1137",
+            "comments": "This rule blocks Office apps from creating child processes. Office apps include Word, Excel, PowerPoint, OneNote, and Access.\n\nCreating malicious child processes is a common malware strategy. Malware that abuses Office as a vector often runs VBA macros and exploit code to download and attempt to run more payloads. However, some legitimate line-of-business applications might also generate child processes for benign purposes; such as spawning a command prompt or using PowerShell to configure registry settings.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-all-office-applications-from-creating-child-processes"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-d4f940ab-401b-4efc-aadc-ad5f3c50688a",
+            "capability_description": "Block Office application from creating child processes",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1137.004",
+            "attack_object_name": "Outlook Home Page",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "related_score": "T1137",
+            "comments": "This rule blocks Office apps from creating child processes. Office apps include Word, Excel, PowerPoint, OneNote, and Access.\n\nCreating malicious child processes is a common malware strategy. Malware that abuses Office as a vector often runs VBA macros and exploit code to download and attempt to run more payloads. However, some legitimate line-of-business applications might also generate child processes for benign purposes; such as spawning a command prompt or using PowerShell to configure registry settings.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-all-office-applications-from-creating-child-processes"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-d4f940ab-401b-4efc-aadc-ad5f3c50688a",
+            "capability_description": "Block Office application from creating child processes",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1137.005",
+            "attack_object_name": "Outlook Rules",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "related_score": "T1137",
+            "comments": "This rule blocks Office apps from creating child processes. Office apps include Word, Excel, PowerPoint, OneNote, and Access.\n\nCreating malicious child processes is a common malware strategy. Malware that abuses Office as a vector often runs VBA macros and exploit code to download and attempt to run more payloads. However, some legitimate line-of-business applications might also generate child processes for benign purposes; such as spawning a command prompt or using PowerShell to configure registry settings.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-all-office-applications-from-creating-child-processes"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-26190899-1602-49e8-8b27-eb1d0a1ce869",
+            "capability_description": "Block Office communication application from creating child processes",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1137.005",
+            "attack_object_name": "Outlook Rules",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "related_score": "T1137",
+            "comments": "This rule prevents Outlook from creating child processes, while still allowing legitimate Outlook functions.\n\nThis rule protects against social engineering attacks and prevents exploiting code from abusing vulnerabilities in Outlook. It also protects against Outlook rules and forms exploits that attackers can use when a user's credentials are compromised.\n\nNote:\nThis rule blocks DLP policy tips and ToolTips in Outlook. This rule applies to Outlook and Outlook.com only.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-office-communication-application-from-creating-child-processes"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-d4f940ab-401b-4efc-aadc-ad5f3c50688a",
+            "capability_description": "Block Office application from creating child processes",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1137.006",
+            "attack_object_name": "Add-ins",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "related_score": "T1137",
+            "comments": "This rule blocks Office apps from creating child processes. Office apps include Word, Excel, PowerPoint, OneNote, and Access.\n\nCreating malicious child processes is a common malware strategy. Malware that abuses Office as a vector often runs VBA macros and exploit code to download and attempt to run more payloads. However, some legitimate line-of-business applications might also generate child processes for benign purposes; such as spawning a command prompt or using PowerShell to configure registry settings.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-all-office-applications-from-creating-child-processes"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-3b576869-a4ec-4529-8536-b80a7769e899",
+            "capability_description": "Block Office applications from creating executable content",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1137.006",
+            "attack_object_name": "Add-ins",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "related_score": "T1137",
+            "comments": "This rule prevents Office apps, including Word, Excel, and PowerPoint, from creating potentially malicious executable content, by blocking malicious code from being written to disk.\n\nMalware that abuses Office as a vector might attempt to break out of Office and save malicious components to disk. These malicious components would survive a computer reboot and persist on the system. Therefore, this rule defends against a common persistence technique. This rule also blocks execution of untrusted files that may have been saved by Office macros that are allowed to run in Office files.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-office-applications-from-creating-executable-content"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-26190899-1602-49e8-8b27-eb1d0a1ce869",
+            "capability_description": "Block Office communication application from creating child processes",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1203",
+            "attack_object_name": "Exploitation for Client Execution",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "comments": "This rule prevents Outlook from creating child processes, while still allowing legitimate Outlook functions.\n\nThis rule protects against social engineering attacks and prevents exploiting code from abusing vulnerabilities in Outlook. It also protects against Outlook rules and forms exploits that attackers can use when a user's credentials are compromised.\n\nNote:\nThis rule blocks DLP policy tips and ToolTips in Outlook. This rule applies to Outlook and Outlook.com only.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-office-communication-application-from-creating-child-processes"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-01443614-cd74-433a-b99e-2ecdc07bfc25",
+            "capability_description": "Block executable files from running unless they meet a prevalence, age, or trusted list criteria",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1204",
+            "attack_object_name": "User Execution",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "comments": "This rule blocks executable files, such as .exe, .dll, or .scr, from launching. Thus, launching untrusted or unknown executable files can be risky, as it might not be initially clear if the files are malicious.\n\nImportant:\nYou must enable cloud-delivered protection to use this rule.\n\nThe rule Block executable files from running unless they meet a prevalence, age, or trusted list criterion with GUID 01443614-cd74-433a-b99e-2ecdc07bfc25 is owned by Microsoft and is not specified by admins. This rule uses cloud-delivered protection to update its trusted list regularly.\n\nYou can specify individual files or folders (using folder paths or fully qualified resource names) but you can't specify which rules or exclusions apply to.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-executable-files-from-running-unless-they-meet-a-prevalence-age-or-trusted-list-criterion"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c",
+            "capability_description": "Block Adobe Reader from creating child processes",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1204.002",
+            "attack_object_name": "Malicious File",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "related_score": "T1204",
+            "comments": "This rule prevents attacks by blocking Adobe Reader from creating processes.\n\nMalware can download and launch payloads and break out of Adobe Reader through social engineering or exploits. By blocking child processes from being generated by Adobe Reader, malware attempting to use Adobe Reader as an attack vector are prevented from spreading.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-adobe-reader-from-creating-child-processes"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-d4f940ab-401b-4efc-aadc-ad5f3c50688a",
+            "capability_description": "Block Office application from creating child processes",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1204.002",
+            "attack_object_name": "Malicious File",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "related_score": "T1204",
+            "comments": "This rule blocks Office apps from creating child processes. Office apps include Word, Excel, PowerPoint, OneNote, and Access.\n\nCreating malicious child processes is a common malware strategy. Malware that abuses Office as a vector often runs VBA macros and exploit code to download and attempt to run more payloads. However, some legitimate line-of-business applications might also generate child processes for benign purposes; such as spawning a command prompt or using PowerShell to configure registry settings.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-all-office-applications-from-creating-child-processes"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-be9ba2d9-53ea-4cdc-84e5-9b1eeee46550",
+            "capability_description": "Block executable content from email client and webmail",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1204.002",
+            "attack_object_name": "Malicious File",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "related_score": "T1204",
+            "comments": "This rule blocks email opened within the Microsoft Outlook application, or Outlook.com and other popular webmail providers from propagating the \n\nfollowing file types:\nExecutable files (such as .exe, .dll, or .scr)\nScript files (such as a PowerShell .ps1, Visual Basic .vbs, or JavaScript .js file)",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-executable-content-from-email-client-and-webmail"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-c1db55ab-c21a-4637-bb3f-a12568109d35",
+            "capability_description": "Use advanced protection against ransomware",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1486",
+            "attack_object_name": "Data Encrypted for Impact",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "comments": "This rule provides an extra layer of protection against ransomware. It uses both client and cloud heuristics to determine whether a file resembles ransomware. This rule doesn't block files that have one or more of the following \n\ncharacteristics:\nThe file has already been found to be unharmful in the Microsoft cloud.\nThe file is a valid signed file.\nThe file is prevalent enough to not be considered as ransomware.\nThe rule tends to err on the side of caution to prevent ransomware.\n\nNote:\nYou must enable cloud-delivered protection to use this rule.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#use-advanced-protection-against-ransomware"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-a8f5898e-1dc8-49a9-9878-85004b8a61e6",
+            "capability_description": "Block Webshell creation for Servers",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1505.003",
+            "attack_object_name": "Web Shell",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "related_score": "T1505",
+            "comments": "This rule blocks web shell script creation on Microsoft Server, Exchange Role.\n\nA web shell script is a specifically crafted script that allows an attacker to control the compromised server. A web shell may include functionalities such as receiving and executing malicious commands, downloading and executing malicious files, stealing and exfiltrating credentials and sensitive information, identifying potential targets etc.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-webshell-creation-for-servers"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-56a863a9-875e-4185-98a7-b882c64b5ce5",
+            "capability_description": "Block abuse of exploited vulnerable signed drivers",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1543",
+            "attack_object_name": "Create or Modify System Process",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "comments": "This rule prevents an application from writing a vulnerable signed driver to disk. In-the-wild, vulnerable signed drivers can be exploited by local applications - that have sufficient privileges - to gain access to the kernel. \n\nVulnerable signed drivers enable attackers to disable or circumvent security solutions, eventually leading to system compromise.\nThe Block abuse of exploited vulnerable signed drivers rule doesn't block a driver already existing on the system from being loaded.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-abuse-of-exploited-vulnerable-signed-drivers"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-56a863a9-875e-4185-98a7-b882c64b5ce5",
+            "capability_description": "Block abuse of exploited vulnerable signed drivers",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1543.003",
+            "attack_object_name": "Windows Service",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "related_score": "T1543",
+            "comments": "This rule prevents an application from writing a vulnerable signed driver to disk. In-the-wild, vulnerable signed drivers can be exploited by local applications - that have sufficient privileges - to gain access to the kernel. \n\nVulnerable signed drivers enable attackers to disable or circumvent security solutions, eventually leading to system compromise.\nThe Block abuse of exploited vulnerable signed drivers rule doesn't block a driver already existing on the system from being loaded.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-abuse-of-exploited-vulnerable-signed-drivers"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-e6db77e5-3df2-4cf1-b95a-636979351e5b",
+            "capability_description": "Block persistence through WMI event subscription",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1546.003",
+            "attack_object_name": "Windows Management Instrumentation Event Subscription",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "related_score": "T1546",
+            "comments": "This rule prevents malware from abusing WMI to attain persistence on a device.\n\nImportant:\nFile and folder exclusions don't apply to this attack surface reduction rule.\n\nFileless threats employ various tactics to stay hidden, to avoid being seen in the file system, and to gain periodic execution control. Some threats can abuse the WMI repository and event model to stay hidden.\n\nNote:\nIf CcmExec.exe (SCCM Agent) is detected on the device, the ASR rule is classified as \"not applicable\" in Defender for Endpoint settings in the Microsoft Defender portal.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-persistence-through-wmi-event-subscription"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-33ddedf1-c6e0-47cb-833e-de6133960387",
+            "capability_description": "Block rebooting machine in Safe Mode (preview)",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1562.009",
+            "attack_object_name": "Safe Mode Boot",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "related_score": "T1562",
+            "comments": "This rule prevents the execution of commands to restart machines in Safe Mode.\n\nSafe Mode is a diagnostic mode that only loads the essential files and drivers needed for Windows to run. However, in Safe Mode, many security products are either disabled or operate in a limited capacity, which allows attackers to further launch tampering commands, or simply execute and encrypt all files on the machine. This rule blocks such attacks by preventing processes from restarting machines in Safe Mode.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-rebooting-machine-in-safe-mode-preview"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-d1e49aac-8f56-4280-b9ba-993a6d77406c",
+            "capability_description": "Block process creations originating from PSExec and WMI commands",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1569.002",
+            "attack_object_name": "Service Execution",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "related_score": "T1569",
+            "comments": "This rule blocks processes created through PsExec and WMI from running. Both PsExec and WMI can remotely execute code. There's a risk of malware abusing functionality of PsExec and WMI for command and control purposes, or to spread an infection throughout an organization's network.\n\nWarning:\nOnly use this rule if you're managing your devices with Intune or another MDM solution. This rule is incompatible with management through Microsoft Endpoint Configuration Manager because this rule blocks WMI commands the Configuration Manager client uses to function correctly.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-process-creations-originating-from-psexec-and-wmi-commands"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "M-ASR-d1e49aac-8f56-4280-b9ba-993a6d77406c",
+            "capability_description": "Block process creations originating from PSExec and WMI commands",
+            "mapping_type": "Mitigate",
+            "attack_object_id": "T1570",
+            "attack_object_name": "Lateral Tool Transfer",
+            "capability_group": "ASR",
+            "score_category": "protect",
+            "score_value": "significant",
+            "comments": "This rule blocks processes created through PsExec and WMI from running. Both PsExec and WMI can remotely execute code. There's a risk of malware abusing functionality of PsExec and WMI for command and control purposes, or to spread an infection throughout an organization's network.\n\nWarning:\nOnly use this rule if you're managing your devices with Intune or another MDM solution. This rule is incompatible with management through Microsoft Endpoint Configuration Manager because this rule blocks WMI commands the Configuration Manager client uses to function correctly.",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-process-creations-originating-from-psexec-and-wmi-commands"
+            ],
+            "status": "complete"
+        },
+         {
+            "capability_id": "D-ASR-9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2",
+            "capability_description": "Block credential stealing from the Windows local security authority subsystem (lsass.exe)",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1003.001",
+            "attack_object_name": "LSASS Memory",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block credential stealing from the Windows local security authority subsystem (lsass.exe)\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrLsassCredentialTheftBlocked\", \"AsrLsassCredentialTheftAudited\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc ",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-credential-stealing-from-the-windows-local-security-authority-subsystem"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-5beb7efe-fd9a-4556-801d-275e5ffc04cc",
+            "capability_description": "Block execution of potentially obfuscated scripts",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1027.010",
+            "attack_object_name": "Command Obfuscation",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block execution of potentially obfuscated scripts\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrObfuscatedScriptAudited\", \"AsrObfuscatedScriptBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc ",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-execution-of-potentially-obfuscated-scripts"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-5beb7efe-fd9a-4556-801d-275e5ffc04cc",
+            "capability_description": "Block execution of potentially obfuscated scripts",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1027.013",
+            "attack_object_name": "Encrypted/Encoded File",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block execution of potentially obfuscated scripts\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrObfuscatedScriptAudited\", \"AsrObfuscatedScriptBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc ",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-execution-of-potentially-obfuscated-scripts"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-0033c00-d16d-4114-a5a0-dc9b3a7d2ceb",
+            "capability_description": "Block use of copied or impersonated system tools (preview)",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1036.003",
+            "attack_object_name": "Rename System Utilities",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block use of copied or impersonated system tools (preview)\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| where RuleId == \"c0033c00-d16d-4114-a5a0-dc9b3a7d2ceb\"\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc ",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-use-of-copied-or-impersonated-system-tools-preview"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-0033c00-d16d-4114-a5a0-dc9b3a7d2ceb",
+            "capability_description": "Block use of copied or impersonated system tools (preview)",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1036.005",
+            "attack_object_name": "Match Legitimate Name or Location",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block use of copied or impersonated system tools (preview)\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| where RuleId == \"c0033c00-d16d-4114-a5a0-dc9b3a7d2ceb\"\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc ",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-use-of-copied-or-impersonated-system-tools-preview"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-d1e49aac-8f56-4280-b9ba-993a6d77406c",
+            "capability_description": "Block process creations originating from PSExec and WMI commands",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1047",
+            "attack_object_name": "Windows Management Instrumentation",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block process creations originating from PSExec and WMI commands\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrPsexecWmiChildProcessAudited\", \"AsrPsexecWmiChildProcessBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc ",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-process-creations-originating-from-psexec-and-wmi-commands"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-d1e49aac-8f56-4280-b9ba-993a6d77406c",
+            "capability_description": "Block process creations originating from PSExec and WMI commands",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1569.002",
+            "attack_object_name": "Service Execution",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block process creations originating from PSExec and WMI commands\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrPsexecWmiChildProcessAudited\", \"AsrPsexecWmiChildProcessBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc ",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-process-creations-originating-from-psexec-and-wmi-commands"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-d1e49aac-8f56-4280-b9ba-993a6d77406c",
+            "capability_description": "Block process creations originating from PSExec and WMI commands",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1570",
+            "attack_object_name": "Lateral Tool Transfer",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block process creations originating from PSExec and WMI commands\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrPsexecWmiChildProcessAudited\", \"AsrPsexecWmiChildProcessBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc ",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-process-creations-originating-from-psexec-and-wmi-commands"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-75668c1f-73b5-4cf0-bb93-3ecf5cb7cc84",
+            "capability_description": "Block Office applications from injecting code into other processes",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1055",
+            "attack_object_name": "Process Injection",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block Office applications from injecting code into other processes\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrOfficeProcessInjectionAudited\", \"AsrOfficeProcessInjectionBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-office-applications-from-injecting-code-into-other-processes"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-d3e037e1-3eb8-44c8-a917-57927947596d",
+            "capability_description": "Block JavaScript or VBScript from launching downloaded executable content",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1059.005",
+            "attack_object_name": "Visual Basic",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block JavaScript or VBScript from launching downloaded executable content\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrScriptExecutableDownloadAudited\", \"AsrScriptExecutableDownloadBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-javascript-or-vbscript-from-launching-downloaded-executable-content"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-d3e037e1-3eb8-44c8-a917-57927947596d",
+            "capability_description": "Block JavaScript or VBScript from launching downloaded executable content",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1059.007",
+            "attack_object_name": "JavaScript",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block JavaScript or VBScript from launching downloaded executable content\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrScriptExecutableDownloadAudited\", \"AsrScriptExecutableDownloadBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-javascript-or-vbscript-from-launching-downloaded-executable-content"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-56a863a9-875e-4185-98a7-b882c64b5ce5",
+            "capability_description": "Block abuse of exploited vulnerable signed drivers",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1068",
+            "attack_object_name": "Exploitation for Privilege Escalation",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block abuse of exploited vulnerable signed drivers\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrVulnerableSignedDriverAudited\", \"AsrVulnerableSignedDriverBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc",
+            "references": [
+                ""
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-56a863a9-875e-4185-98a7-b882c64b5ce5",
+            "capability_description": "Block abuse of exploited vulnerable signed drivers",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1543",
+            "attack_object_name": "Create or Modify System Process",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block abuse of exploited vulnerable signed drivers\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrVulnerableSignedDriverAudited\", \"AsrVulnerableSignedDriverBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc",
+            "references": [
+                ""
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-56a863a9-875e-4185-98a7-b882c64b5ce5",
+            "capability_description": "Block abuse of exploited vulnerable signed drivers",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1543.003",
+            "attack_object_name": "Windows Service",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block abuse of exploited vulnerable signed drivers\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrVulnerableSignedDriverAudited\", \"AsrVulnerableSignedDriverBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc",
+            "references": [
+                ""
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4",
+            "capability_description": "Block untrusted and unsigned processes that run from USB",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1091",
+            "attack_object_name": "Replication Through Removable Media",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrUntrustedUsbProcessAudited\", \"AsrUntrustedUsbProcessBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc ",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-abuse-of-exploited-vulnerable-signed-drivers"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-92e97fa1-2edf-4476-bdd6-9dd0b4dddc7b",
+            "capability_description": "Block Win32 API calls from Office macros",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1106",
+            "attack_object_name": "Native API",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block Win32 API calls from Office macros\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrOfficeMacroWin32ApiCallsAudited\", \"AsrOfficeMacroWin32ApiCallsBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc ",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-win32-api-calls-from-office-macros"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-d4f940ab-401b-4efc-aadc-ad5f3c50688a",
+            "capability_description": "Block Office application from creating child processes",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1137",
+            "attack_object_name": "Office Application Startup",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block Office application from creating child processes\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrOfficeChildProcessAudited\", \"AsrOfficeChildProcessBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc ",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-all-office-applications-from-creating-child-processes"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-d4f940ab-401b-4efc-aadc-ad5f3c50688a",
+            "capability_description": "Block Office application from creating child processes",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1137.001",
+            "attack_object_name": "Office Template Macros",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block Office application from creating child processes\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrOfficeChildProcessAudited\", \"AsrOfficeChildProcessBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc ",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-all-office-applications-from-creating-child-processes"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-d4f940ab-401b-4efc-aadc-ad5f3c50688a",
+            "capability_description": "Block Office application from creating child processes",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1137.002",
+            "attack_object_name": "Office Test",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block Office application from creating child processes\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrOfficeChildProcessAudited\", \"AsrOfficeChildProcessBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc ",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-all-office-applications-from-creating-child-processes"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-d4f940ab-401b-4efc-aadc-ad5f3c50688a",
+            "capability_description": "Block Office application from creating child processes",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1137.003",
+            "attack_object_name": "Outlook Forms",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block Office application from creating child processes\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrOfficeChildProcessAudited\", \"AsrOfficeChildProcessBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc ",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-all-office-applications-from-creating-child-processes"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-d4f940ab-401b-4efc-aadc-ad5f3c50688a",
+            "capability_description": "Block Office application from creating child processes",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1137.004",
+            "attack_object_name": "Outlook Home Page",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block Office application from creating child processes\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrOfficeChildProcessAudited\", \"AsrOfficeChildProcessBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc ",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-all-office-applications-from-creating-child-processes"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-d4f940ab-401b-4efc-aadc-ad5f3c50688a",
+            "capability_description": "Block Office application from creating child processes",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1137.005",
+            "attack_object_name": "Outlook Rules",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block Office application from creating child processes\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrOfficeChildProcessAudited\", \"AsrOfficeChildProcessBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc ",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-all-office-applications-from-creating-child-processes"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-d4f940ab-401b-4efc-aadc-ad5f3c50688a",
+            "capability_description": "Block Office application from creating child processes",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1137.006",
+            "attack_object_name": "Add-ins",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block Office application from creating child processes\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrOfficeChildProcessAudited\", \"AsrOfficeChildProcessBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc ",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-all-office-applications-from-creating-child-processes"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-d4f940ab-401b-4efc-aadc-ad5f3c50688a",
+            "capability_description": "Block Office application from creating child processes",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1204.002",
+            "attack_object_name": "Malicious File",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block Office application from creating child processes\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrOfficeChildProcessAudited\", \"AsrOfficeChildProcessBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc ",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-all-office-applications-from-creating-child-processes"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-26190899-1602-49e8-8b27-eb1d0a1ce869",
+            "capability_description": "Block Office communication application from creating child processes",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1137.005",
+            "attack_object_name": "Outlook Rules",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block Office communication application from creating child processes\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrOfficeCommAppChildProcessAudited\", \"AsrOfficeCommAppChildProcessBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc ",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-office-communication-application-from-creating-child-processes"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-26190899-1602-49e8-8b27-eb1d0a1ce869",
+            "capability_description": "Block Office communication application from creating child processes",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1203",
+            "attack_object_name": "Exploitation for Client Execution",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block Office communication application from creating child processes\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrOfficeCommAppChildProcessAudited\", \"AsrOfficeCommAppChildProcessBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc ",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-office-communication-application-from-creating-child-processes"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-b576869-a4ec-4529-8536-b80a7769e899",
+            "capability_description": "Block Office applications from creating executable content",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1137.006",
+            "attack_object_name": "Add-ins",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block Office applications from creating executable content\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrExecutableOfficeContentAudited\", \"AsrExecutableOfficeContentBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-office-applications-from-creating-executable-content"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-01443614-cd74-433a-b99e-2ecdc07bfc25",
+            "capability_description": "Block executable files from running unless they meet a prevalence, age, or trusted list criteria",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1204",
+            "attack_object_name": "User Execution",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block executable files from running unless they meet a prevalence, age, or trusted list criteria\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrUntrustedExecutableAudited\", \"AsrUntrustedExecutableBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc ",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-executable-files-from-running-unless-they-meet-a-prevalence-age-or-trusted-list-criterion"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c",
+            "capability_description": "Block Adobe Reader from creating child processes",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1204.002",
+            "attack_object_name": "Malicious File",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block Adobe Reader from creating child processes\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrAdobeReaderChildProcessAudited\", \"AsrAdobeReaderChildProcessBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc ",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-adobe-reader-from-creating-child-processes"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-be9ba2d9-53ea-4cdc-84e5-9b1eeee46550",
+            "capability_description": "Block executable content from email client and webmail",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1204.002",
+            "attack_object_name": "Malicious File",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block executable content from email client and webmail\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrExecutableEmailContentAudited\", \"AsrExecutableEmailContentBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc ",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-executable-content-from-email-client-and-webmail"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-c1db55ab-c21a-4637-bb3f-a12568109d35",
+            "capability_description": "Use advanced protection against ransomware",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1486",
+            "attack_object_name": "Data Encrypted for Impact",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Use advanced protection against ransomware\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrRansomwareAudited\", \"AsrRansomwareBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc ",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#use-advanced-protection-against-ransomware"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-a8f5898e-1dc8-49a9-9878-85004b8a61e6",
+            "capability_description": "Block Webshell creation for Servers",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1505.003",
+            "attack_object_name": "Web Shell",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block Webshell creation for Servers\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| where RuleId == \"a8f5898e-1dc8-49a9-9878-85004b8a61e6\"\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc ",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-webshell-creation-for-servers"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-e6db77e5-3df2-4cf1-b95a-636979351e5b",
+            "capability_description": "Block persistence through WMI event subscription",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1546.003",
+            "attack_object_name": "Windows Management Instrumentation Event Subscription",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block persistence through WMI event subscription\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| where ActionType in (\"AsrPersistenceThroughWmiAudited\", \"AsrPersistenceThroughWmiBlocked\")\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc ",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-persistence-through-wmi-event-subscription"
+            ],
+            "status": "complete"
+        },
+        {
+            "capability_id": "D-ASR-33ddedf1-c6e0-47cb-833e-de6133960387",
+            "capability_description": "Block rebooting machine in Safe Mode (preview)",
+            "mapping_type": "Detect",
+            "attack_object_id": "T1562.009",
+            "attack_object_name": "Safe Mode Boot",
+            "capability_group": "ASR",
+            "score_category": "detect",
+            "score_value": "significant",
+            "related_score": "",
+            "comments": "This query identifies activities triggered by the Attack Surface Reduction (ASR) rule \"Block rebooting machine in Safe Mode (preview)\" and aggregates additional context from the Microsoft ASR to MITRE-ATT&CK Mapping Project.\n\n// Replace \"Timestamp\" with \"TimeGenerated\" when running this KQL query in Microsoft Sentinel.\nlet ASRTOATTACKCCSV = externaldata(\n    ASR_Rule_Name: string,Rule_GUID: string,Description: string,Mapping_type: string,Mitre_Attck_ID: string,target_type: string,Mitre_Attck_Name: string,target_ref: string,Refs: string,Advanced_hunting_action_type: string,Dependencies: string\n)[@\"https://raw.githubusercontent.com/CTI-Driven/Microsoft-ASR-to-MITRE-ATTACK-Mapping-Project/main/PDF_CSV_Files/ASRTOATTACKCSV.csv\"]\nwith (format=\"csv\", ignoreFirstRecord=True);\nlet ASRTOATTACKCMapping = ( ASRTOATTACKCCSV | summarize Techniques_ID_Mapping = make_set(Mitre_Attck_ID), ASR_Rule_Name = make_set(ASR_Rule_Name), Descriptions = make_set(Description),Mapping_types = make_set(Mapping_type), target_types = make_set(target_type), Techniques_Name_Mapping = make_set(Mitre_Attck_Name), target_refs = make_set(target_ref), ASR_Refs = make_set(Refs) by Rule_GUID );\nDeviceEvents\n| where Timestamp > ago(24hr)\n| extend RuleId = tostring(parse_json(AdditionalFields).RuleId)\n| where RuleId == \"33ddedf1-c6e0-47cb-833e-de6133960387\"\n| join kind=leftouter ASRTOATTACKCMapping on $left.RuleId == $right.Rule_GUID\n| summarize arg_max(Timestamp, *) by DeviceId, ActionType, FileName, ProcessCommandLine, InitiatingProcessCommandLine\n| project-reorder Timestamp, DeviceName, ActionType, ASR_Rule_Name, Techniques_ID_Mapping, Techniques_Name_Mapping, Descriptions, ASR_Refs, InitiatingProcessFolderPath, InitiatingProcessFileName, InitiatingProcessCommandLine, FolderPath, FileName, ProcessCommandLine\n| order by Timestamp asc ",
+            "references": [
+                "https://learn.microsoft.com/en-us/defender-endpoint/attack-surface-reduction-rules-reference#block-rebooting-machine-in-safe-mode-preview"
+            ],
+            "status": "complete"
+        }
+    ]
+}
